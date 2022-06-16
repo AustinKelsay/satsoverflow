@@ -1,4 +1,4 @@
-exports.seed = function(knex: any) {
+exports.seed = function(knex) {
     // Deletes ALL existing entries
     return knex('answers').del()
       .then(function () {

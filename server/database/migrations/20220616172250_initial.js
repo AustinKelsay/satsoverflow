@@ -1,8 +1,5 @@
-import { Knex } from "knex";
-
-
-export async function up(knex: Knex): Promise<void> {
-    return knex.schema.createTable("users", (users: any) => {
+exports.up = function(knex) {
+    return knex.schema.createTable("users", (users) => {
         users.increments("id").primary();
 
         users
@@ -17,7 +14,7 @@ export async function up(knex: Knex): Promise<void> {
         users
             .string("description", 256)
     })
-    .createTable('lnAuth', (lnAuth: any) => {
+    .createTable('lnAuth', (lnAuth) => {
         lnAuth.increments();
 
         lnAuth
@@ -42,7 +39,7 @@ export async function up(knex: Knex): Promise<void> {
             .unique()
             .notNullable()
     })
-    .createTable("questions", (questions: any) => {
+    .createTable("questions", (questions) => {
         questions.increments();
 
         questions
@@ -80,7 +77,7 @@ export async function up(knex: Knex): Promise<void> {
             .boolean('answered')
             .defaultTo(false)
     })
-    .createTable('answers', (answers: any) => {
+    .createTable('answers', (answers) => {
         answers.increments();
 
         answers
@@ -125,7 +122,7 @@ export async function up(knex: Knex): Promise<void> {
 }
 
 
-export async function down(knex: Knex): Promise<void> {
+exports.down = function(knex) {
     return knex.schema
         .dropTableIfExists("answers")
         .dropTableIfExists("questions")

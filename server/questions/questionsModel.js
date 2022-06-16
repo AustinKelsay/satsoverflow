@@ -1,4 +1,4 @@
-import db from "../../database/db-config";
+const db = require('../database/db-config');
 
 module.exports = {
   addQuestion,
@@ -12,21 +12,21 @@ function findQuestions() {
   return db("questions");
 }
 
-function findById(id: Number) {
+function findById(id) {
   return db("questions").where({ id }).first();
 }
 
-async function addQuestion(question: any) {
+async function addQuestion(question) {
     return db("questions").insert(question, "id")
 }
 
-function updateQuestion(id: Number, changes: any) {
+function updateQuestion(id, changes) {
     return db('questions')
       .where({ id })
       .update(changes, '*');
   }
 
-function removeQuestion(id: Number) { 
+function removeQuestion(id) { 
     return db('questions')
     .where('id', Number(id))
     .del();
