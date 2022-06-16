@@ -1,10 +1,16 @@
 const express = require("express");
 const server = express()
+const morgan = require("morgan");
+const helmet = require("helmet");
+const cors = require("cors");
 
 const answersRouter = require("./answers/answersRouter");
 const questionsRouter = require("./questions/questionsRouter");
 
 server.use(express.json());
+server.use(morgan("tiny"));
+server.use(helmet());
+server.use(cors());
 
 server.use("/api/answers", answersRouter);
 server.use("/api/questions", questionsRouter);
