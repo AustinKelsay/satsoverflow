@@ -1,9 +1,11 @@
-import express, { Application, Request, Response } from "express";
+import express, { Application, Request, Response, Router } from "express";
 import expressWs from 'express-ws';
 import cors from 'cors';
 import morgan from 'morgan';
 import helmet from 'helmet';
 import dotenv from 'dotenv';
+const {questionsRouter} = require("./questions/questionsRouter");
+const {answersRouter} = require("./answers/answersRouter");
 
 dotenv.config()
 
@@ -37,8 +39,8 @@ app.use(helmet());
 
 // Routes
 // app.use("/api/auth", catchAsyncErrors(authRouter));
-// app.use("/api/questions", catchAsyncErrors(questionsRouter));
-// app.use("/api/answers", catchAsyncErrors(answersRouter));
+app.use("/api/questions", Router(questionsRouter));
+app.use("/api/answers", Router(answersRouter));
 
 
 app.get("/", (req: Request, res: Response) => {

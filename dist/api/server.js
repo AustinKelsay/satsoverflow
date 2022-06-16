@@ -1,4 +1,27 @@
 "use strict";
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -40,12 +63,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.catchAsyncErrors = void 0;
-var express_1 = __importDefault(require("express"));
+var express_1 = __importStar(require("express"));
 var express_ws_1 = __importDefault(require("express-ws"));
 var cors_1 = __importDefault(require("cors"));
 var morgan_1 = __importDefault(require("morgan"));
 var helmet_1 = __importDefault(require("helmet"));
 var dotenv_1 = __importDefault(require("dotenv"));
+var questionsRouter = require("./questions/questionsRouter").questionsRouter;
+var answersRouter = require("./answers/answersRouter").answersRouter;
 dotenv_1.default.config();
 var app = (0, express_ws_1.default)((0, express_1.default)()).app;
 app.use(express_1.default.json());
@@ -85,8 +110,8 @@ var catchAsyncErrors = function (routeHandler) {
 exports.catchAsyncErrors = catchAsyncErrors;
 // Routes
 // app.use("/api/auth", catchAsyncErrors(authRouter));
-// app.use("/api/questions", catchAsyncErrors(questionsRouter));
-// app.use("/api/answers", catchAsyncErrors(answersRouter));
+app.use("/api/questions", (0, express_1.Router)(questionsRouter));
+app.use("/api/answers", (0, express_1.Router)(answersRouter));
 app.get("/", function (req, res) {
     res.status(200).json({ message: "Welcome!" });
 });
