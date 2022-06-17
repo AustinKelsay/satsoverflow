@@ -9,23 +9,26 @@
   flex-direction: column;
   margin-left: 10px;
 
-  a {
+}
+
+.body a {
     font-size: 14px;
   }
 
-  p {
+.body p {
     font-size: 12px;
   }
-}
+
 
 .avatar {
   width: 48px;
   height: 48px;
   border-radius: 3px;
+}
 
-  img {
+ .avatar img {
     width: 48px;
     height: 48px;
     border-radius: 3px;
   }
-}
+
