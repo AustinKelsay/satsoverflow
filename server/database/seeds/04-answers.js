@@ -11,7 +11,8 @@ exports.seed = function(knex) {
             question_id: 1,
             answer: "API's can be difficult, go ahead and start with a simple python flask api and work your way up from there. Check out the docs at https://flask.palletsprojects.com/en/2.0.x/api/",
             votes: 3,
-            best_answer: true
+            best_answer: true,
+            created_at: new Date()
           },
           {
             id: 2, 
@@ -20,7 +21,8 @@ exports.seed = function(knex) {
             question_id: 2,
             answer: "Just read their docs dude...",
             votes: 0,
-            best_answer: false
+            best_answer: false,
+            created_at: new Date()
           }
         ]);
       });

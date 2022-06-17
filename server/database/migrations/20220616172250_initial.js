@@ -69,6 +69,10 @@ exports.up = function(knex) {
             .notNullable()
 
         questions
+            .integer('votes')
+            .defaultTo(0)
+
+        questions
             .integer('bounty')
             .notNullable()
             .defaultTo(0)
@@ -76,6 +80,10 @@ exports.up = function(knex) {
         questions
             .boolean('answered')
             .defaultTo(false)
+        
+        questions
+            .timestamp('created_at')
+            .defaultTo(knex.fn.now())
     })
     .createTable('answers', (answers) => {
         answers.increments();
@@ -118,6 +126,10 @@ exports.up = function(knex) {
         answers
             .integer('votes')
             .defaultTo(0)
+
+        answers
+            .timestamp('created_at')
+            .defaultTo(knex.fn.now())
     })
 }
 
