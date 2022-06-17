@@ -13,22 +13,12 @@ exports.up = function(knex) {
 
         users
             .string("description", 256)
+
+        users
+            .string("pubkey")
     })
     .createTable('lnAuth', (lnAuth) => {
         lnAuth.increments();
-
-        lnAuth
-            .timestamp('created_at')
-            .defaultTo(knex.fn.now())
-
-        lnAuth
-            .integer('user_id')
-            .unsigned()
-            .notNullable()
-            .references('id')
-            .inTable('users')
-            .onDelete('CASCADE')
-            .onUpdate('CASCADE')
 
         lnAuth
             .string('k1')
@@ -38,6 +28,14 @@ exports.up = function(knex) {
             .string('pubkey')
             .unique()
             .notNullable()
+        
+        lnAuth
+            .timestamp('updated_at')
+            .defaultTo(knex.fn.now())
+
+        lnAuth
+            .timestamp('created_at')
+            .defaultTo(knex.fn.now())
     })
     .createTable("questions", (questions) => {
         questions.increments();
@@ -66,6 +64,10 @@ exports.up = function(knex) {
 
         questions
             .string('description', 1024)
+            .notNullable()
+
+        questions
+            .specificType('tags', 'text ARRAY')
             .notNullable()
 
         questions
