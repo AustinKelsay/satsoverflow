@@ -2,6 +2,7 @@ import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import prisma from "../../../lib/prisma";
+import { publicFetch } from "../../../util/fetcher";
 
 export default (req, res) => NextAuth(req, res, options);
 
@@ -36,17 +37,20 @@ const options = {
       async authorize(credentials, req) {
         const { k1, pubkey } = credentials;
         try {
-          const lnauth = await prisma.lnAuth.findUnique({ where: { k1: k1 } });
+          // get lnauth model using k1
+          const lnauth = await publicFetch.get(`/auth/lnauth/${k1}`).data;
           if (lnauth.pubkey === pubkey) {
-            let user = await prisma.user.findUnique({
-              where: { pubkey: pubkey },
-            });
+            // get user model using pubkey
+            let user = await publicFetch.get(`/auth/user/${pubkey}`).data;
             if (!user) {
-              user = await prisma.user.create({
-                data: { name: pubkey.slice(0, 10), pubkey: pubkey },
-              });
+              // create user model using pubkey
+              user = await publicFetch.post(`/auth/user/create`, {
+                name: pubkey.slice(0, 10),
+                pubkey: pubkey,
+              }).data;
             }
-            await prisma.lnAuth.delete({ where: { k1: k1 } });
+            // delete lnauth model using k1
+            let deleted = await publicFetch.delete(`/auth/lnauth/${k1}`);
             return user;
           }
         } catch (error) {
