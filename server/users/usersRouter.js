@@ -34,11 +34,15 @@ router.get('/:id', (req, res) => {
 
 router.post('/', (req, res) => {
     const user = req.body;
-    Users.addUser(user)
-        .then((user) => {
-            res.status(201).json(user);
-        })
-        .catch((error) => {
-            res.status(500).json({ errorMessage: 'Error adding user', error });
-        });
+    if (user.pubkey && user.username) {
+        Users.addUser(user)
+            .then((user) => {
+                res.status(201).json(user);
+            })
+            .catch((error) => {
+                res.status(500).json({ errorMessage: 'Error adding user', error });
+            });
+        } else {
+            res.status(400).json({ message: 'Missing required fields' });
+        }
 })
