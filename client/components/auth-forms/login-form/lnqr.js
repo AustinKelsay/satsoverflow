@@ -3,19 +3,7 @@ import InvoiceStatus from "./invoice-status";
 import { requestProvider } from "webln";
 import { useEffect } from "react";
 
-type LnQRProps = {
-  value: string,
-  webLn?: any,
-  statusVariant?: any,
-  status: string,
-};
-
-export default function LnQR({
-  value,
-  webLn,
-  statusVariant,
-  status,
-}: LnQRProps) {
+export default function LnQR({ value, webLn, statusVariant, status }) {
   const qrValue = "lightning:" + value.toUpperCase();
 
   useEffect(() => {
@@ -49,7 +37,7 @@ export default function LnQR({
   );
 }
 
-export function LnQRSkeleton({ status }: { status: string }) {
+export function LnQRSkeleton({ status }) {
   return (
     <>
       <div

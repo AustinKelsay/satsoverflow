@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import Alert from "react-bootstrap/Alert";
 import { useRouter } from "next/router";
 import LnQR, { LnQRSkeleton } from "./lnqr";
-import { gql, useMutation, useQuery } from "@apollo/client";
+import { publicFetch } from "../../../util/fetcher";
 
 export const EmailSchema = Yup.object({
   email: Yup.string().email("email is no good").required("required"),
@@ -92,18 +92,14 @@ function LnQRAuth({ k1, encodedUrl, callbackUrl }) {
 }
 
 export function LightningAuth({ callbackUrl }) {
-  // query for challenge
-  const [createAuth, { data, error }] = useMutation(gql`
-    mutation createAuth {
-      createAuth {
-        k1
-        encodedUrl
-      }
-    }
-  `);
-
   useEffect(() => {
-    createAuth();
+    const createAuth = async () => {
+      const data = await publicFetch.post(`/auth/lnauth/create`, {
+        k1: k1,
+        encodedUrl: encodedUrl,
+      }).data;
+    };
+    createAuth().catch(console.error);
   }, []);
 
   if (error) return <div>error</div>;

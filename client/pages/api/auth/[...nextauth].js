@@ -1,7 +1,7 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { PrismaAdapter } from "@next-auth/prisma-adapter";
-import prisma from "../../../lib/prisma";
+// import { PrismaAdapter } from "@next-auth/prisma-adapter";
+// import prisma from "../../../lib/prisma";
 import { publicFetch } from "../../../util/fetcher";
 
 export default (req, res) => NextAuth(req, res, options);
@@ -14,9 +14,7 @@ const options = {
       }
 
       if (token?.id) {
-        const { name } = await prisma.user.findUnique({
-          where: { id: token.id },
-        });
+        const name = await publicFetch.get(`/auth/user/${id}`).data.name;
         token.name = name;
       }
       return token;
@@ -60,7 +58,7 @@ const options = {
       },
     }),
   ],
-  adapter: PrismaAdapter(prisma),
+  // adapter: PrismaAdapter(prisma),
   secret: process.env.NEXTAUTH_SECRET,
   session: { strategy: "jwt" },
   jwt: {

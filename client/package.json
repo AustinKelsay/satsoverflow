@@ -15,14 +15,18 @@
     "date-fns": "^2.28.0",
     "formik": "^2.2.9",
     "next": "12.1.6",
+    "next-auth": "^4.5.0",
     "nprogress": "^0.2.0",
     "postcss-loader": "^7.0.0",
     "postcss-nested": "^5.0.6",
     "postcss-preset-env": "^7.7.1",
+    "qrcode.react": "^3.0.2",
     "react": "^17.0.0",
+    "react-bootstrap": "^2.4.0",
     "react-dom": "^17.0.0",
     "react-tagsinput": "^3.19.0",
     "slug": "^5.3.0",
+    "webln": "^0.3.0",
     "yup": "^0.32.11"
   },
   "devDependencies": {
