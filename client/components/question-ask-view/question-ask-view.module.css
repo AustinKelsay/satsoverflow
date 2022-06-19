@@ -16,20 +16,24 @@
   display: flex;
   align-items: center;
   transition: var(--fade);
+}
 
-  @media (--m) {
+
+.topForm h1 {
+  font-size: 22px;
+  padding-left: 16px;
+}
+
+
+@media (--m) {
+  .topForm {
     height: 130px;
     background-image: url('http://localhost:3000/images/background.svg');
     background-repeat: no-repeat;
     background-position: right bottom;
   }
 
-  h1 {
-    font-size: 22px;
-    padding-left: 16px;
-
-    @media (--m) {
-      font-size: 27px;
-    }
+  .topForm h1 {
+    font-size: 27px;
   }
 }

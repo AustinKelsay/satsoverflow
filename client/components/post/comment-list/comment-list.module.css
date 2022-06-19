@@ -7,16 +7,10 @@
   margin-bottom: 10px;
   display: flex;
   flex-direction: column;
-
-  @media (--m) {
-    padding-left: 16px;
-  }
 }
 
-.animation {
-  div {
+.animation div {
     animation: background-fade 3s ease-in-out;
-  }
 }
 
 @keyframes background-fade {
@@ -40,4 +34,10 @@
   width: 175px;
   padding: 0 3px 2px 3px;
   margin-top: 10px;
+}
+
+@media (--m) {
+  .commentCell {
+    padding-left: 16px;
+  }
 }

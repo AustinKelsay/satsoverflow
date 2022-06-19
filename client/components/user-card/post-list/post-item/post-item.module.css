@@ -24,8 +24,10 @@
   color: var(--black-300);
   margin-left: 6px;
   display: none;
+}
 
-  @media (--m) {
-    display: block;
+@media (--m) {
+  .created{
+  display: block;
   }
 }

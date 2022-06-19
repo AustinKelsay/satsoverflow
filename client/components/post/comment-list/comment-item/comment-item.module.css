@@ -2,15 +2,15 @@
   padding: 6px;
   border-bottom: 1px solid var(--black-050);
   display: inline-block;
+}
 
-  p {
-    display: inline;
-    word-break: break-word;
-  }
+.commentContainer p {
+  display: inline;
+  word-break: break-word;
+}
 
-  &:first-child {
-    border-top: 1px solid var(--black-050);
-  }
+.commentContainer::first-child {
+  border-top: 1px solid var(--black-050);
 }
 
 .owner {
@@ -25,8 +25,8 @@
 
 .delete {
   color: var(--red-400);
+}
 
-  &:hover {
-    color: var(--red-500);
-  }
+.delete::hover {
+  color: var(--red-500);
 }

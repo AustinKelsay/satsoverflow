@@ -12,10 +12,10 @@
   margin-left: auto;
   margin-right: auto;
   margin-top: 16px;
+}
 
-  img {
-    border-radius: 3px;
-  }
+.avatar img {
+  border-radius: 3px;
 }
 
 .username {
@@ -29,15 +29,16 @@
 .created {
   margin-top: 10px;
   text-align: center;
-  p {
-    font-family: monospace;
-  }
+}
 
-  span {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
-      Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-      'Segoe UI Symbol';
-    font-weight: bold;
-    font-size: 14px;
-  }
+.created p {
+  font-family: monospace;
+}
+
+.created span {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+    'Segoe UI Symbol';
+  font-weight: bold;
+  font-size: 14px;
 }

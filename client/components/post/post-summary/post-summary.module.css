@@ -11,10 +11,10 @@
   line-height: 1.3;
   white-space: pre-wrap;
   word-break: break-word;
+}
 
-  p {
-    margin-bottom: 1em;
-  }
+.text  p {
+  margin-bottom: 1em;
 }
 
 .footer {
@@ -40,28 +40,28 @@
   flex-shrink: 0;
   font-size: 12px;
   align-items: center;
+}
 
-  img {
-    width: 32px;
-    height: 32px;
-    border-radius: 1px;
-  }
+.userDetails img {
+  width: 32px;
+  height: 32px;
+  border-radius: 1px;
+}
 
-  span {
-    color: var(--black-400);
-  }
+.userDetails span {
+  color: var(--black-400);
+}
 
-  .info {
-    display: flex;
-    flex-direction: column;
-    margin-left: 10px;
-  }
+.userDetails .info {
+  display: flex;
+  flex-direction: column;
+  margin-left: 10px;
 }
 
 .delete {
   color: var(--red-400);
+}
 
-  &:hover {
-    color: var(--red-500);
-  }
+.delete::hover {
+  color: var(--red-500);
 }

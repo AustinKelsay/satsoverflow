@@ -9,15 +9,16 @@
 
 .voteButton {
   margin: 2px;
-  &:hover {
-    background-color: transparent;
-  }
-  
-  svg {
-    color: var(--black-200);
-    width: 36px;
-    height: 36px;
-  }
+}
+
+.voteButton::hover {
+  background-color: transparent;
+}
+
+.voteButton svg {
+  color: var(--black-200);
+  width: 36px;
+  height: 36px;
 }
 
 .voted {

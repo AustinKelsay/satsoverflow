@@ -11,10 +11,10 @@
 
 .fill {
   flex: 1;
+}
 
-  h2 {
-    font-size: 18px;
-    font-weight: 400;
-    color: var(--black-800)
-  }
+.fill  h2 {
+  font-size: 18px;
+  font-weight: 400;
+  color: var(--black-800)
 }
