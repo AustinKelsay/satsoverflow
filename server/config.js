@@ -5,9 +5,7 @@ module.exports = {
     test: 'mongodb://localhost/stackoverflow-test',
     options: {
       useNewUrlParser: true,
-      useUnifiedTopology: true,
-      useFindAndModify: false,
-      useCreateIndex: true
+      useUnifiedTopology: true
     }
   },
   jwt: {

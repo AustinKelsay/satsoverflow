@@ -48,9 +48,9 @@ router.get('/user/id/:id', findByID);
 router.get('/user/pubkey/:pubkey', findByPub);
 
 //lnauth
-router.post('/lnauth/create', createLnAuth);
-router.get('/lnauth/k1/:k1', findLNByk1);
-router.delete('/lnauth/k1/:k1', deleteLNByk1);
+// router.post('/lnauth/create', createLnAuth);
+// router.get('/lnauth/k1/:k1', findLNByk1);
+// router.delete('/lnauth/k1/:k1', deleteLNByk1);
 
 //questions
 router.param('question', loadQuestions);
