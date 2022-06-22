@@ -8,7 +8,7 @@
     "dev": "nodemon index.js",
     "test": "jest"
   },
-  "author": "Suhail Saqan",
+  "author": "Austin Kelsay",
   "license": "MIT",
   "dependencies": {
     "bcryptjs": "^2.4.3",

@@ -1,0 +1,29 @@
+.qrCode {
+    display: flex;
+    flex-direction: column;
+    margin: 2rem;
+  }
+  
+  .qrImage {
+    border-radius: 10px 10px 0 0;
+  }
+  
+  .copyBtn {
+    background-color: #ffdd00;
+    width: 100%;
+    cursor: pointer;
+    color: #373737ff;
+    text-align: center;
+    padding: 10px;
+    border-radius: 0 0 10px 10px;
+  }
+  
+  .copyBtn:hover {
+    background-color: #ffec6e;
+  }
+  
+  @media print {
+    .copyBtn {
+      display: none;
+    }
+  }
