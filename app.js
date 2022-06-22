@@ -6,7 +6,7 @@ const cors = require('cors');
 
 const app = express();
 
-app.use(cors());
+app.use(cors({origin: "https://satsoverflow.heroku.app"}));
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
