@@ -8,7 +8,7 @@ import ModalContext from "../store/modal";
 import { AuthProvider } from "../store/auth";
 import { FetchProvider } from "../store/fetch";
 import { TagProvider } from "../store/tag";
-
+import { UserWrapper }    from '../store/UserContext'
 import Modal from "../components/modal";
 import AuthForms from "../components/auth-forms";
 
@@ -37,18 +37,20 @@ function MyApp({ Component, pageProps }) {
       <ModalContext.Provider
         value={{ ref, handleComponentVisible, setIsComponentVisible }}
       >
-        <AuthProvider>
-          <FetchProvider>
-            <TagProvider>
-              <Component {...pageProps} />
-              {isComponentVisible && (
-                <Modal>
-                  <AuthForms screen={authScreen} />
-                </Modal>
-              )}
-            </TagProvider>
-          </FetchProvider>
-        </AuthProvider>
+        <UserWrapper>
+          <AuthProvider>
+            <FetchProvider>
+              <TagProvider>
+                <Component {...pageProps} />
+                {isComponentVisible && (
+                  <Modal>
+                    <AuthForms screen={authScreen} />
+                  </Modal>
+                )}
+              </TagProvider>
+            </FetchProvider>
+          </AuthProvider>
+        </UserWrapper>
       </ModalContext.Provider>
     </SessionProvider>
   );

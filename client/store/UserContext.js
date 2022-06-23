@@ -5,6 +5,7 @@ import {
     useEffect, 
     useMemo
   } from 'react';
+import { publicFetch } from '../util/fetcher'
   
   const UserContext = createContext();
   
@@ -39,7 +40,7 @@ import {
   
   async function getUser(callback) {
     try {
-      const res  = await fetch('/api/user/read')
+      const res  = await publicFetch('/api/user/read')
   
       if (res.status === 401) {
         return callback({ load: false })

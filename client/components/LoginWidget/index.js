@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router'
 import { useLogin }  from '../../hooks/useAPI'
-import Loading       from '../Loading'
+import {Spinner} from "../../components/icons/Spinner"
 import Error         from '../Error'
 import QrCode        from '../QrCode'
 
@@ -18,6 +18,6 @@ export default function LoginWidget({ user }) {
   case Boolean(isError):
     return <Error />
   default:
-    return <Loading />
+    return <Spinner />
   }
 }
