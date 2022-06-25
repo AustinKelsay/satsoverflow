@@ -1,5 +1,5 @@
 import { bech32 }       from 'bech32';
-import { errorHandler } from '@/lib/error';
+import { errorHandler } from './error';
 
 export function sanitize(string) {
   if (string instanceof String) {

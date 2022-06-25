@@ -1,23 +1,44 @@
+import { useEffect } from 'react'
 import { useRouter } from 'next/router'
+
+import styles        from './styles.module.css'
 import { useLogin }  from '../../hooks/useAPI'
-import {Spinner} from "../../components/icons/Spinner"
+import Spinner from "../icons/Spinner"
 import Error         from '../Error'
 import QrCode        from '../QrCode'
+import { useUserContext } from '../../store/UserContext'
 
-export default function LoginWidget({ user }) {
-  const router = useRouter();
-  const { source } = router.query || ''
-  const { data, isLoading, isError } = useLogin();
+export default function LoginWidget({ redirect }) {
+  const router   = useRouter();
+  const [ user ] = useUserContext();
+  const { data, isLoading, isError } = useLogin(redirect);
 
-  switch (true) {
-  case Boolean(source && user?.key):
-    router.push(`/${source}`)
-    return
-  case Boolean(data && data.lnurl):
-    return <QrCode data={data.lnurl}/>
-  case Boolean(isError):
-    return <Error />
-  default:
-    return <Spinner />
-  }
+  useEffect(() => {
+    if (user?.key) {
+      router.push('/profile')
+    }
+  }, [ data, user?.key, router ])
+
+  return (
+    <>
+      { isError
+        ? <Error />
+        : isLoading
+          ? <Spinner />
+          : data && data.lnurl
+            ? <LoginPrompt data={ data.lnurl }/>
+            : <Spinner />
+      }
+    </>
+  )
+}
+
+function LoginPrompt({ data }) {
+  const title = 'Login using Lightning Wallet'
+
+  return (
+    <div className={styles.container}>
+      <QrCode title={ title } data={ data }/>
+    </div>
+  )
 }
