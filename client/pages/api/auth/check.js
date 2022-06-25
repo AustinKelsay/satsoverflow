@@ -1,5 +1,5 @@
-import { withSessionRoute } from '@/lib/session'
-import { hasAccountEntry } from '@/lib/auth';
+import { withSessionRoute } from '../../../lib/session'
+import { hasAccountEntry } from '../../../lib/auth';
 
 export default withSessionRoute(checkAccess);
 
