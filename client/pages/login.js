@@ -1,4 +1,4 @@
-import styles from "../styles/login.css"
+import styles from "../styles/login.module.css"
 import LoginWidget from '../components/LoginWidget'
 
 export default function LoginPage() {
