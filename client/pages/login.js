@@ -7,7 +7,7 @@ export default function LoginPage() {
       <div className={styles.header}>
         Login Page
       </div>
-      <p className={stlyes.description}>
+      <p className={styles.description}>
         Scan the QR Code below using a compatible Lightning Wallet.
       </p>
       <LoginWidget />
