@@ -6,6 +6,7 @@ import * as Yup from 'yup'
 import { FetchContext } from '../../store/fetch'
 import { AuthContext } from '../../store/auth'
 import ModalContext from '../../store/modal'
+import {isAuthenticated} from "../../lib/auth"
 
 import TextArea from '../textarea'
 import Button from '../button'
