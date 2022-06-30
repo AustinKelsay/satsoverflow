@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const baseURL = 'https://satsoverflow.herokuapp.com/api'
+const baseURL = 'http://satsoverflow.heroku.app/api'
 
 const publicFetch = axios.create({
   baseURL

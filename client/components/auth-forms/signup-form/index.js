@@ -23,9 +23,9 @@ const SignupForm = () => {
       onSubmit={async (values, { setStatus, resetForm }) => {
         setLoading(true)
         try {
-          const { data } = await publicFetch.post('signup', values)
-          const { token, expiresAt, userInfo } = data
-          setAuthState({ token, expiresAt, userInfo })
+          const { data } = await publicFetch.post('/auth/signup', values)
+          // const { token, expiresAt, userInfo } = data
+          // setAuthState({ token, expiresAt, userInfo })
           resetForm({})
           setIsComponentVisible(false)
         } catch (error) {
@@ -38,14 +38,6 @@ const SignupForm = () => {
           .required('Required')
           .max(16, 'Must be at most 16 characters long')
           .matches(/^[a-zA-Z0-9_-]+$/, 'Contains invalid characters'),
-        password: Yup.string()
-          .required('Required')
-          .min(6, 'Must be at least 6 characters long')
-          .max(50, 'Must be at most 50 characters long'),
-        passwordConfirmation: Yup.string().oneOf(
-          [Yup.ref('password'), null],
-          'Passwords must match'
-        )
       })}
     >
       {({
@@ -70,7 +62,7 @@ const SignupForm = () => {
             hasError={touched.username && errors.username}
             errorMessage={errors.username && errors.username}
           />
-          <FormInput
+          {/* <FormInput
             label="Password"
             type="password"
             name="password"
@@ -95,7 +87,7 @@ const SignupForm = () => {
             errorMessage={
               errors.passwordConfirmation && errors.passwordConfirmation
             }
-          />
+          /> */}
           <p className={styles.status}>{status}</p>
           <Button
             primary
