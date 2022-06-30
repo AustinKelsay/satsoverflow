@@ -3,8 +3,7 @@ const Schema = mongoose.Schema;
 
 const userModel = new Schema({
   username: { type: String, unique: true },
-  pubkey: { type: String, unique: true },
-  password: { type: String, required: true },
+  key: { type: String, unique: true },
   role: { type: String, default: 'user' },
   profilePhoto: {
     type: String,
@@ -20,7 +19,6 @@ userModel.options.toJSON.transform = (doc, ret) => {
   const obj = { ...ret };
   delete obj._id;
   delete obj.__v;
-  delete obj.password;
   return obj;
 };
 

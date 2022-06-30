@@ -1,24 +1,63 @@
 const User = require('../models/user');
 const jwtDecode = require('jwt-decode');
 const { body, validationResult } = require('express-validator');
-
 const { createToken, hashPassword, verifyPassword } = require('../utils/authentication');
 
-exports.signup = async (req, res) => {
-  const result = validationResult(req);
-  if (!result.isEmpty()) {
-    const errors = result.array({ onlyFirstError: true });
-    return res.status(422).json({ errors });
+async function sign(req, res) {
+  /* Validate the signature received from a signing device. 
+   */
+  const { key, ref, sig } = req.query;
+
+  if (key && ref && sig && pending.has(ref)) {
+    /* If all params are present, fetch reference msg. */
+    const data = pending.get(ref)
+
+    if (data.msg && verifySig(sig, data.msg, key)) {
+      /* Verify that the reference message has been signed. */
+      pending.set(ref, { key, ...data })
+      return res.status(200).json({ 'status': 'ok' })
+    }
   }
+}
+
+exports.signup = async (req, res) => {
+  // const result = validationResult(req);
+  // if (!result.isEmpty()) {
+  //   const errors = result.array({ onlyFirstError: true });
+  //   return res.status(422).json({ errors });
+  // }
 
   try {
+    console.log(req.cookies)
     const { username } = req.body;
+  
+    const { tag } = req.query;
 
-    const hashedPassword = await hashPassword(req.body.password);
+    if (tag && tag === 'login') {
+      /* If login tag is present, forward to signature resolver. */
+      return sign(req, res)
+    }
+
+    // const hashedPassword = await hashPassword(req.body.password);
+    const { session } = req;
+
+    if (session?.user?.key) {
+      /* If client has a current user session, return error.*/
+      return res.status(200).json({ authorized: true })
+    }
+  
+    if (!session.auth) {
+      /* Generate a new session for browser user. */
+      session.auth = {
+        ref: Buffer.from(utils.randomBytes(5)).toString('base64url'),
+        msg: utils.bytesToHex(utils.randomBytes(32))
+      }
+      await req.session.save();
+    }
 
     const userData = {
       username: username.toLowerCase(),
-      password: hashedPassword
+      key: session.user.key
     };
 
     const existingUsername = await User.findOne({
@@ -35,9 +74,9 @@ exports.signup = async (req, res) => {
     const savedUser = await newUser.save();
 
     if (savedUser) {
-      const token = createToken(savedUser);
-      const decodedToken = jwtDecode(token);
-      const expiresAt = decodedToken.exp;
+      // const token = createToken(savedUser);
+      // const decodedToken = jwtDecode(token);
+      // const expiresAt = decodedToken.exp;
 
       const { username, role, id, created, profilePhoto } = savedUser;
       const userInfo = {
@@ -50,9 +89,9 @@ exports.signup = async (req, res) => {
 
       return res.json({
         message: 'User created!',
-        token,
+        // token,
         userInfo,
-        expiresAt
+        // expiresAt
       });
     } else {
       return res.status(400).json({
