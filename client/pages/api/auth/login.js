@@ -36,11 +36,10 @@ async function login(req, res) {
   }
 
   const { ref, msg } = session.auth;
-        
+  console.log(pending)
   if (pending.has(ref)) {
     /* Check if a key has been provided for this reference. */
     const { key } = pending.get(ref) || {};
-    console.log(key)
 
     if (key) {
       /* If key has been provided, add to user data. */
@@ -76,6 +75,7 @@ async function sign(req, res) {
     if (data.msg && verifySig(sig, data.msg, key)) {
       /* Verify that the reference message has been signed. */
       pending.set(ref, { key, ...data })
+      console.log(pending)
       return res.status(200).json({ 'status': 'ok' })
     }
   }

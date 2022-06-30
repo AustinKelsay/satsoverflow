@@ -6,6 +6,7 @@ import { publicFetch } from '../../../util/fetcher'
 import { AuthContext } from '../../../store/auth'
 import ModalContext from '../../../store/modal'
 
+import LoginWidget from "../../LoginWidget"
 import FormInput from '../../form-input'
 import Button from '../../button'
 
@@ -88,6 +89,7 @@ const SignupForm = () => {
               errors.passwordConfirmation && errors.passwordConfirmation
             }
           /> */}
+          <LoginWidget />
           <p className={styles.status}>{status}</p>
           <Button
             primary
