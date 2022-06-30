@@ -32,7 +32,7 @@ exports.signup = async (req, res) => {
     const {username} = req.body
     const {session} = req
 
-    if (!session.user.key || !username) {
+    if (!session?.user?.key || !username) {
         res.status(402).json({msg: "Missing either key or username"})
     }
 
