@@ -24,7 +24,8 @@ const SignupForm = () => {
       onSubmit={async (values, { setStatus, resetForm }) => {
         setLoading(true)
         try {
-          const { data } = await publicFetch.post('/auth/signup', values)
+          const { data } = await publicFetch.post('/signup', values)
+          console.log(data)
           // const { token, expiresAt, userInfo } = data
           // setAuthState({ token, expiresAt, userInfo })
           resetForm({})

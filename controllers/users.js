@@ -27,32 +27,13 @@ exports.signup = async (req, res) => {
   //   return res.status(422).json({ errors });
   // }
 
-  try {
-    console.log(req.cookies)
-    const { username } = req.body;
-  
-    const { tag } = req.query;
+  if (req.method !== 'POST') return res.status(405).end();
 
-    if (tag && tag === 'login') {
-      /* If login tag is present, forward to signature resolver. */
-      return sign(req, res)
-    }
+    const {username} = req.body
+    const {session} = req
 
-    // const hashedPassword = await hashPassword(req.body.password);
-    const { session } = req;
-
-    if (session?.user?.key) {
-      /* If client has a current user session, return error.*/
-      return res.status(200).json({ authorized: true })
-    }
-  
-    if (!session.auth) {
-      /* Generate a new session for browser user. */
-      session.auth = {
-        ref: Buffer.from(utils.randomBytes(5)).toString('base64url'),
-        msg: utils.bytesToHex(utils.randomBytes(32))
-      }
-      await req.session.save();
+    if (!session.user.key || !username) {
+        res.status(402).json({msg: "Missing either key or username"})
     }
 
     const userData = {
@@ -98,11 +79,6 @@ exports.signup = async (req, res) => {
         message: 'There was a problem creating your account.'
       });
     }
-  } catch (error) {
-    return res.status(400).json({
-      message: 'There was a problem creating your account.'
-    });
-  }
 };
 
 exports.authenticate = async (req, res) => {
