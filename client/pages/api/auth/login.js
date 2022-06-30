@@ -40,7 +40,7 @@ async function login(req, res) {
   if (pending.has(ref)) {
     /* Check if a key has been provided for this reference. */
     const { key } = pending.get(ref) || {};
-    // console.log(key)
+    console.log(key)
 
     if (key) {
       /* If key has been provided, add to user data. */
