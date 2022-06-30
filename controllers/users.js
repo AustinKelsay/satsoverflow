@@ -38,7 +38,7 @@ exports.signup = async (req, res) => {
 
     const userData = {
       username: username.toLowerCase(),
-      key: session.user.key
+      key: session?.user?.key
     };
 
     const existingUsername = await User.findOne({
