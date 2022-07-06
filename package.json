@@ -1,33 +1,23 @@
 {
-  "name": "satsoverflow-server",
-  "version": "1.0.0",
-  "description": "satsoverflow",
-  "main": "index.js",
+  "name": "sats-overflow",
+  "version": "0.1.0",
+  "private": true,
   "scripts": {
-    "start": "node index.js",
-    "dev": "nodemon index.js",
-    "test": "jest"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
   },
-  "author": "Austin Kelsay",
-  "license": "MIT",
   "dependencies": {
-    "bcryptjs": "^2.4.3",
-    "body-parser": "^1.19.0",
-    "cookie-parser": "^1.4.6",
-    "cors": "^2.8.5",
-    "dotenv": "^8.2.0",
-    "express": "^4.17.1",
-    "express-validator": "^6.5.0",
-    "jsonwebtoken": "^8.5.1",
-    "jwt-decode": "^2.2.0",
-    "mongoose": "^6.0.0",
-    "morgan": "^1.10.0"
+    "express": "^4.18.1",
+    "mongodb": "^4.7.0",
+    "mongoose": "^6.4.3",
+    "next": "12.2.0",
+    "react": "18.2.0",
+    "react-dom": "18.2.0"
   },
   "devDependencies": {
-    "faker": "^4.1.0",
-    "jest": "^26.0.1",
-    "nodemon": "^2.0.4",
-    "prettier": "^2.0.5",
-    "supertest": "^4.0.2"
+    "eslint": "8.19.0",
+    "eslint-config-next": "12.2.0"
   }
 }
