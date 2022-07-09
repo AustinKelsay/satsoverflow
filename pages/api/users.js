@@ -49,8 +49,8 @@ async function addUser(req, res) {
     
     // return the user
     res.status(201).json(newUser);
-  } catch {
-    res.status(500).json({ error: 'Something went wrong' });
+  } catch(err) {
+    res.status(500).json({ msg: 'Something went wrong', err });
   }
 }
 
