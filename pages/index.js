@@ -44,7 +44,7 @@ export default function Home({users}) {
 
 export async function getServerSideProps(ctx) {
   // request posts from api
-  let response = await fetch(`http://localhost:3000/api/user`);
+  let response = await fetch(`http://localhost:3000/api/users`);
   // extract the data
   let data = await response.json();
 
