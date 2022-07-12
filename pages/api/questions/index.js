@@ -1,5 +1,5 @@
-import connectMongo from '../../src/lib/connectMongo';
-import Questions from "../../src/models/question";
+import connectMongo from '../../../src/lib/connectMongo';
+import Questions from "../../../src/models/question";
 
 export default function handler(req, res) {
     // switch the methods
@@ -12,7 +12,7 @@ export default function handler(req, res) {
             return addQuestion(req, res);
         }
         default: {
-            return res.status(405).json({ error: 'Method not allowed' });
+            return res.status(405).json({ msg: 'Method not allowed' });
         }
     }
   }
@@ -25,8 +25,8 @@ export default function handler(req, res) {
             const questions = await Questions.find({});
             
             res.status(200).json(questions);
-        } catch {
-            res.status(500).json({ error: 'Something went wrong' });
+        } catch(err) {
+            res.status(500).json({ msg: 'Something went wrong', error: err });
         }
       }
         // Add question
@@ -37,7 +37,7 @@ export default function handler(req, res) {
                 const newQuestion = await Questions.create(req.body);
                 
                 res.status(201).json(newQuestion);
-            } catch {
-                res.status(500).json({ error: 'Something went wrong' });
+            } catch(err) {
+                res.status(500).json({ msg: 'Something went wrong', error: err });
             }
         }

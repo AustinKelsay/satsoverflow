@@ -1,14 +1,13 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+import { Schema, model, models } from 'mongoose';
 
-const voteSchema = require('./vote');
-const commentSchema = require('./comment');
-const answerSchema = require('./answer');
+import voteSchema from './vote';
+import commentSchema from './comment';
+import answerSchema from './answer';
 
 const questionSchema = new Schema({
   author: {
     type: Schema.Types.ObjectId,
-    ref: 'user',
+    ref: 'Users',
     required: true
   },
   title: { type: String, required: true },
@@ -82,9 +81,9 @@ questionSchema.methods = {
 
 questionSchema.pre(/^find/, function () {
   this.populate('author')
-    .populate('comments.author', '-role')
-    .populate('answers.author', '-role')
-    .populate('answers.comments.author', '-role');
+    .populate('comments.author')
+    .populate('answers.author')
+    .populate('answers.comments.author');
 });
 
 questionSchema.pre('save', function (next) {
@@ -92,15 +91,17 @@ questionSchema.pre('save', function (next) {
   next();
 });
 
-questionSchema.post('save', function (doc, next) {
-  if (this.wasNew) this.vote(this.author._id, 1);
-  doc
-    .populate('author')
-    .populate('answers.author', '-role')
-    .populate('comments.author', '-role')
-    .populate('answers.comments.author', '-role')
-    .execPopulate()
-    .then(() => next());
-});
+// questionSchema.post('save', function (doc, next) {
+//   if (this.wasNew) this.vote(this.author._id, 1);
+//   doc
+//     .populate('author')
+//     .populate('answers.author')
+//     .populate('comments.author')
+//     .populate('answers.comments.author')
+//     .execPopulate()
+//     .then(() => next());
+// });
 
-module.exports = mongoose.model('Question', questionSchema);
+const Questions = models.Questions || model('Questions', questionSchema);
+
+export default Questions;
