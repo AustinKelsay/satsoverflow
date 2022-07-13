@@ -79,17 +79,17 @@ questionSchema.methods = {
   }
 };
 
-questionSchema.pre(/^find/, function () {
-  this.populate('author')
-    .populate('comments.author')
-    .populate('answers.author')
-    .populate('answers.comments.author');
-});
+// questionSchema.pre(/^find/, function () {
+//   this.populate('author')
+//     .populate('comments.author')
+//     .populate('answers.author')
+//     .populate('answers.comments.author');
+// });
 
-questionSchema.pre('save', function (next) {
-  this.wasNew = this.isNew;
-  next();
-});
+// questionSchema.pre('save', function (next) {
+//   this.wasNew = this.isNew;
+//   next();
+// });
 
 // questionSchema.post('save', function (doc, next) {
 //   if (this.wasNew) this.vote(this.author._id, 1);

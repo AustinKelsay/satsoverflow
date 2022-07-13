@@ -1,5 +1,5 @@
-import connectMongo from '../../src/lib/connectMongo';
-import Questions from "../../src/models/question";
+import connectMongo from '../../../src/lib/connectMongo';
+import Questions from "../../../src/models/question";
 
 export default function handler(req, res) {
     // switch the methods
