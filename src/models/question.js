@@ -59,6 +59,13 @@ questionSchema.methods = {
     return this.save();
   },
 
+  updateComment: function (id, body) {
+    const comment = this.comments.id(id);
+    if (!comment) throw new Error('Comment not found');
+    comment.body = body;
+    return this.save();
+  },
+
   removeComment: function (id) {
     const comment = this.comments.id(id);
     if (!comment) throw new Error('Comment not found');
@@ -70,6 +77,13 @@ questionSchema.methods = {
     this.answers.push({ author, text });
     return this.save();
   },
+
+  updateAnswer: function (id, text) {
+    const answer = this.answers.id(id);
+    if (!answer) throw new Error('Answer not found');
+    answer.text = text;
+    return this.save();
+    },
 
   removeAnswer: function (id) {
     const answer = this.answers.id(id);
