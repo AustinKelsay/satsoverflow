@@ -1,7 +1,6 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+import { Schema, model, models } from 'mongoose';
 
-const commentSchema = new Schema({
+export const commentSchema = new Schema({
   author: {
     type: Schema.Types.ObjectId,
     ref: 'user',
@@ -18,4 +17,6 @@ commentSchema.options.toJSON.transform = (doc, ret) => {
   return obj;
 };
 
-module.exports = commentSchema;
+const Comments = models.Comments || model('Comments', commentSchema);
+
+export default Comments;

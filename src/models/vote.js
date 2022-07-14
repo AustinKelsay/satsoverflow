@@ -1,7 +1,6 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+import { Schema, model, models } from 'mongoose';
 
-const voteSchema = new Schema(
+export const voteSchema = new Schema(
   {
     user: { type: Schema.Types.ObjectId, required: true },
     vote: { type: Number, required: true }
@@ -9,4 +8,6 @@ const voteSchema = new Schema(
   { _id: false }
 );
 
-module.exports = voteSchema
+const Votes = models.Votes || model('Votes', voteSchema);
+
+export default Votes;

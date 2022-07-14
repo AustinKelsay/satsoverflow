@@ -1,10 +1,13 @@
 import connectMongo from '../../../src/lib/connectMongo';
-import Answers from '../../../src/models/answer';
 import Questions from '../../../src/models/question';
+import Answers from '../../../src/models/answer';
 
 export default function handler(req, res) {
     // switch the methods
     switch (req.method) {
+        case 'GET': {
+            return getAnswerById(req, res);
+        }
         case 'POST': {
             return addAnswer(req, res);
         }
@@ -20,6 +23,18 @@ export default function handler(req, res) {
     }
 }
 
+    // Get answer by id
+    async function getAnswerById(req, res) {
+        try {
+            await connectMongo();
+            const answerId = req.query.slug[0];
+            const answer = await Answers.find({"id": answerId});
+            res.status(200).json(answer);
+        } catch {
+            res.status(500).json({ msg: 'Something went wrong' });
+        }
+    }
+
     // Add answer
     async function addAnswer(req, res) {
         try {
@@ -28,12 +43,19 @@ export default function handler(req, res) {
             const {author} = req.body;
             const {text} = req.body;
 
+            const answerToSave = {
+                author,
+                text
+            };
+
             const questionId = req.query.slug;
             const question = await Questions.findById(questionId);
 
             const answerOnQuestion = await question.addAnswer(author, text);
+            
+            const answer = await Answers.create(answerToSave);
 
-            res.status(201).json(answerOnQuestion);
+            res.status(201).json(answer);
         } catch(err) {
             res.status(500).json({ msg: 'Something went wrong', error: err });
         }

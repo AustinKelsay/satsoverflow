@@ -1,10 +1,9 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+import { Schema, model, models } from 'mongoose';
 
-const voteSchema = require('./vote');
-const commentSchema = require('./comment');
+import {voteSchema} from './vote';
+import {commentSchema} from './comment';
 
-const answerSchema = new Schema({
+export const answerSchema = new Schema({
   author: {
     type: Schema.Types.ObjectId,
     ref: 'user',
@@ -55,4 +54,6 @@ answerSchema.methods = {
   }
 };
 
-module.exports = answerSchema;
+const Answers = models.Answers || model('Answers', answerSchema);
+
+export default Answers;
