@@ -60,17 +60,19 @@ export default function handler(req, res) {
     }
 
     // Delete answer
-    // async function deleteAnswer(req, res) {
-    //     try {
-    //         await connectMongo();
+    async function deleteAnswer(req, res) {
+        try {
+            await connectMongo();
 
-    //         const answerId = req.query.slug;
-    //         const answer = await Answers.findById(answerId);
+            const questionId = req.query.slug[0];
+            const answerId = req.query.slug[1];
 
-    //         const deletedAnswer = await answer.delete();
+            const question = await Questions.findById(questionId);
 
-    //         res.status(200).json(deletedAnswer);
-    //     } catch(err) {
-    //         res.status(500).json({ msg: 'Something went wrong', error: err });
-    //     }
-    // }
+            const deletedAnswer = await question.removeAnswer(answerId);
+
+            res.status(200).json(deletedAnswer);
+        } catch(err) {
+            res.status(500).json({ msg: 'Something went wrong', error: err });
+        }
+    }
