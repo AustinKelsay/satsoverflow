@@ -39,18 +39,6 @@ answerSchema.methods = {
       this.votes.push({ user, vote });
     }
     return this;
-  },
-
-  addComment: function (author, body) {
-    this.comments.push({ author, body });
-    return this;
-  },
-
-  removeComment: function (id) {
-    const comment = this.comments.id(id);
-    if (!comment) throw new Error('Comment not found');
-    comment.remove();
-    return this;
   }
 };
 

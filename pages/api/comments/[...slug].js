@@ -1,6 +1,7 @@
 import connectMongo from '../../../src/lib/connectMongo';
 import Answers from '../../../src/models/answer';
 import Questions from '../../../src/models/question';
+import Comments from '../../../src/models/comment';
 
 export default function handler(req, res) {
     // switch the methods
@@ -22,21 +23,21 @@ export default function handler(req, res) {
   }
 
     // Add comment
+    // verify user middleware
     async function addComment(req, res) {
         try {
             await connectMongo();
-
-            const isAnswerComment = req.body.answer;
-            if (isAnswerComment) {
-                const answerId = req.query.slug[0];
-                const comment = req.body.text;
-                const answer = await Answers.findById(answerId);
-                const newComment = await answer.addComment(comment);
-                res.status(201).json(newComment);
+            
+            const comment = {
+                body: req.body.text,
+                author: req.body.author
             }
+            const answerId = req.query.slug[0];
 
-
-            res.status(201).json(answerOnQuestion);
+            const answer = await Answers.find({"id": answerId});
+            const newComment = await Comments.create(comment);
+            const saved = await answer.save();
+            res.status(201).json(newComment);
         } catch(err) {
             res.status(500).json({ error: 'Something went wrong' });
         }

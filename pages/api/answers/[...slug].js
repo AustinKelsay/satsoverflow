@@ -50,12 +50,16 @@ export default function handler(req, res) {
 
             const questionId = req.query.slug;
             const question = await Questions.findById(questionId);
-
-            const answerOnQuestion = await question.addAnswer(author, text);
             
+            const saved = await question.save();
             const answer = await Answers.create(answerToSave);
 
-            res.status(201).json(answer);
+            if (saved) {
+                res.status(201).json(answer);
+            }
+            else {
+                res.status(500).json({ msg: 'Something went wrong' });
+            }
         } catch(err) {
             res.status(500).json({ msg: 'Something went wrong', error: err });
         }
@@ -73,7 +77,8 @@ export default function handler(req, res) {
 
             const question = await Questions.findById(questionId);
 
-            const updatedAnswer = await question.updateAnswer(answerId, text);
+            const updatedAnswer = Answers.findByIdAndUpdate(answerId, {text});
+            const saved = await question.save();
 
             res.status(200).json(updatedAnswer);
         } catch(err) {
