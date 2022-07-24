@@ -28,15 +28,15 @@ export default function handler(req, res) {
         try {
             await connectMongo();
             
+            const answerId = req.query.slug[0];
             const comment = {
                 body: req.body.text,
-                author: req.body.author
+                author: req.body.author,
+                answer_id: answerId
             }
-            const answerId = req.query.slug[0];
 
-            const answer = await Answers.find({"id": answerId});
             const newComment = await Comments.create(comment);
-            const saved = await answer.save();
+            
             res.status(201).json(newComment);
         } catch(err) {
             res.status(500).json({ error: 'Something went wrong' });

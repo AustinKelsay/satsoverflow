@@ -42,24 +42,16 @@ export default function handler(req, res) {
 
             const {author} = req.body;
             const {text} = req.body;
+            const questionId = req.query.slug;
 
             const answerToSave = {
                 author,
-                text
+                text,
+                question_id: questionId
             };
 
-            const questionId = req.query.slug;
-            const question = await Questions.findById(questionId);
-            
-            const saved = await question.save();
             const answer = await Answers.create(answerToSave);
 
-            if (saved) {
-                res.status(201).json(answer);
-            }
-            else {
-                res.status(500).json({ msg: 'Something went wrong' });
-            }
         } catch(err) {
             res.status(500).json({ msg: 'Something went wrong', error: err });
         }
@@ -72,13 +64,9 @@ export default function handler(req, res) {
 
             const {text} = req.body;
 
-            const questionId = req.query.slug[0];
-            const answerId = req.query.slug[1];
-
-            const question = await Questions.findById(questionId);
+            const answerId = req.query.slug;
 
             const updatedAnswer = Answers.findByIdAndUpdate(answerId, {text});
-            const saved = await question.save();
 
             res.status(200).json(updatedAnswer);
         } catch(err) {
@@ -90,14 +78,10 @@ export default function handler(req, res) {
     async function deleteAnswer(req, res) {
         try {
             await connectMongo();
-
-            const questionId = req.query.slug[0];
-            const answerId = req.query.slug[1];
-
-            const question = await Questions.findById(questionId);
+            
+            const answerId = req.query.slug;
 
             const deletedAnswer = await Answers.findByIdAndDelete(answerId);
-            const saved = await question.save();
 
             res.status(200).json(deletedAnswer);
         } catch(err) {
