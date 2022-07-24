@@ -96,7 +96,8 @@ export default function handler(req, res) {
 
             const question = await Questions.findById(questionId);
 
-            const deletedAnswer = await question.removeAnswer(answerId);
+            const deletedAnswer = await Answers.findByIdAndDelete(answerId);
+            const saved = await question.save();
 
             res.status(200).json(deletedAnswer);
         } catch(err) {

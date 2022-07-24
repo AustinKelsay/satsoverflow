@@ -7,6 +7,7 @@ export const commentSchema = new Schema({
     required: true
   },
   body: { type: String, required: true },
+  answer_id: { type: Schema.Types.ObjectId, ref: 'answer', required: true },
   created: { type: Date, default: Date.now }
 });
 

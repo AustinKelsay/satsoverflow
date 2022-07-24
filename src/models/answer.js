@@ -12,35 +12,10 @@ export const answerSchema = new Schema({
   created: { type: Date, default: Date.now },
   text: { type: String, required: true },
   score: { type: Number, default: 0 },
-  votes: [voteSchema],
-  comments: [commentSchema]
+  question_id: { type: Schema.Types.ObjectId, ref: 'question', required: true }
 });
 
 answerSchema.set('toJSON', { getters: true });
-
-answerSchema.methods = {
-  vote: function (user, vote) {
-    const existingVote = this.votes.find((v) => v.user._id.equals(user));
-
-    if (existingVote) {
-      // reset score
-      this.score -= existingVote.vote;
-      if (vote == 0) {
-        // remove vote
-        this.votes.pull(existingVote);
-      } else {
-        //change vote
-        this.score += vote;
-        existingVote.vote = vote;
-      }
-    } else if (vote !== 0) {
-      // new vote
-      this.score += vote;
-      this.votes.push({ user, vote });
-    }
-    return this;
-  }
-};
 
 const Answers = models.Answers || model('Answers', answerSchema);
 
