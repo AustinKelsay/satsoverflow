@@ -7,11 +7,9 @@ export default function handler(req, res) {
       case 'GET': {
           return getUserById(req, res);
       }
-
       case 'PUT': {
           return updateUser(req, res);
       }
-
       case 'DELETE': {
           return deleteUser(req, res);
       }

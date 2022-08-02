@@ -7,7 +7,6 @@ export default function handler(req, res) {
         case 'GET': {
             return getQuestions(req, res);
         }
-  
         case 'POST': {
             return addQuestion(req, res);
         }

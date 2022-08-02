@@ -1,16 +1,19 @@
 import connectMongo from '../../../src/lib/connectMongo';
-import Questions from '../../../src/models/question';
 import Answers from '../../../src/models/answer';
+import Votes from '../../../src/models/vote';
 
 export default function handler(req, res) {
     // switch the methods
     switch (req.method) {
-        case 'GET': {
-            return getQuestions(req, res);
-        }
         case 'POST': {
-            return addQuestion(req, res);
+            return upvote(req, res)
         }
+        case 'PUT': {
+            return unvote(req, res)
+        }
+        case 'DELETE': {
+          return downvote(req, res)
+      }
         default: {
             return res.status(405).json({ msg: 'Method not allowed' });
         }
@@ -18,37 +21,60 @@ export default function handler(req, res) {
 }
 
 const upvote = async (req, res) => {
-    const { id } = req.user;
-  
-    if (req.answer) {
-      req.answer.vote(id, 1);
-      const question = await req.question.save();
-      return res.json(question);
+  try {
+    await connectMongo();
+
+    const user = req.body.user;
+    const parentId = req.body.answerId;
+    const answer = await Answers.findById(parentId);
+
+    const voteObj = {
+        user: user,
+        vote: answer.votes.length + 1,
+        parentId: parentId
     }
-    const question = await req.question.vote(id, 1);
-    return res.json(question);
+    const vote = await Votes.create(voteObj);
+    res.status(201).json(vote);
+  } catch(err) {
+      res.status(500).json({ msg: 'Something went wrong', error: err });
+    }
   };
   
 const downvote = async (req, res) => {
-    const { id } = req.user;
-  
-    if (req.answer) {
-      req.answer.vote(id, -1);
-      const question = await req.question.save();
-      return res.json(question);
+  try {
+    await connectMongo();
+
+    const user = req.body.user;
+    const parentId = req.body.answerId;
+    const answer = await Answers.findById(parentId);
+
+    const voteObj = {
+        user: user,
+        vote: answer.votes.length - 1,
+        parentId: parentId
     }
-    const question = await req.question.vote(id, -1);
-    return res.json(question);
+    const vote = await Votes.create(voteObj);
+    res.status(201).json(vote);
+  } catch(err) {
+      res.status(500).json({ msg: 'Something went wrong', error: err });
+    }
   };
   
 const unvote = async (req, res) => {
-    const { id } = req.user;
-  
-    if (req.answer) {
-      req.answer.vote(id, 0);
-      const question = await req.question.save();
-      return res.json(question);
+  try{
+    await connectMongo();
+
+    const user = req.body.user;
+    const parentId = req.body.answerId;
+    const answer = await Answers.findById(parentId);
+
+    const vote = await Votes.findOne({ user: user, parentId: parentId });
+    await vote.remove();
+
+    answer.votes = answer.votes.filter(vote => vote.user !== user);
+    res.status(200).json({ msg: 'Vote removed' });
+  }
+  catch(err) {
+      res.status(500).json({ msg: 'Something went wrong', error: err });
     }
-    const question = await req.question.vote(id, 0);
-    return res.json(question);
   };

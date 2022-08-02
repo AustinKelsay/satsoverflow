@@ -7,11 +7,9 @@ export default function handler(req, res) {
         case 'GET': {
             return getQuestionById(req, res);
         }
-  
         case 'PUT': {
             return updateQuestion(req, res);
         }
-
         case 'DELETE': {
             return deleteQuestion(req, res);
         }

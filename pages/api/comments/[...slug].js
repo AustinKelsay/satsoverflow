@@ -12,7 +12,6 @@ export default function handler(req, res) {
         case 'PUT': {
             return updateComment(req, res);
         }
-      
         case 'DELETE': {
             return deleteComment(req, res);
         }
