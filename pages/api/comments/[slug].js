@@ -20,30 +20,46 @@ export default function handler(req, res) {
   }
 
     async function getCommentById(req, res) {
-        const { slug } = req.params;
-
-        const comment = await Comments.findById(slug);
-        if (!comment) {
-            return res.status(404).json({ error: 'Comment not found' });
+        try {
+            await connectMongo();
+            const { slug } = req.query;
+            const comment = await Comments.findById(slug);
+            if (!comment) {
+                return res.status(404).json({ error: 'Comment not found' });
+            }
+            return res.status(200).json(comment);
         }
-        return res.status(200).json(comment);
+        catch {
+            return res.status(500).json({ error: 'Something went wrong' });
+        }
     }
 
     async function updateCommentById(req, res) {
-        const { slug } = req.params;
-        const { body } = req.body;
-        const comment = await Comments.findByIdAndUpdate(slug, { body }, { new: true });
-        if (!comment) {
-            return res.status(404).json({ error: 'Comment not found' });
+        try {
+            await connectMongo();
+            const { slug } = req.query;
+            const comment = await Comments.findByIdAndUpdate(slug, req.body, { new: true });
+            if (!comment) {
+                return res.status(404).json({ error: 'Comment not found' });
+            }
+            return res.status(200).json(comment);
         }
-        return res.status(200).json(comment);
+        catch {
+            return res.status(500).json({ error: 'Something went wrong' });
+        }
     }
 
     async function deleteCommentById(req, res) {
-        const { slug } = req.params;
-        const comment = await Comments.findByIdAndDelete(slug);
-        if (!comment) {
-            return res.status(404).json({ error: 'Comment not found' });
+        try {
+            await connectMongo();
+            const { slug } = req.query;
+            const comment = await Comments.findByIdAndDelete(slug);
+            if (!comment) {
+                return res.status(404).json({ error: 'Comment not found' });
+            }
+            return res.status(200).json(comment);
         }
-        return res.status(200).json(comment);
+        catch {
+            return res.status(500).json({ error: 'Something went wrong' });
+        }
     }

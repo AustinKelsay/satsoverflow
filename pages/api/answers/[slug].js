@@ -23,7 +23,7 @@ export default function handler(req, res) {
 async function getAnswerById(req, res) {
     try {
         await connectMongo();
-        const answerId = req.query.slug[0];
+        const answerId = req.query.slug;
         const answer = await Answers.find({"id": answerId});
         res.status(200).json(answer);
     } catch {
