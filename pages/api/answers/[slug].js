@@ -1,5 +1,4 @@
 import connectMongo from '../../../src/lib/connectMongo';
-import Questions from '../../../src/models/question';
 import Answers from '../../../src/models/answer';
 
 export default function handler(req, res) {
@@ -7,9 +6,6 @@ export default function handler(req, res) {
     switch (req.method) {
         case 'GET': {
             return getAnswerById(req, res);
-        }
-        case 'POST': {
-            return addAnswer(req, res);
         }
         case 'PUT': {
             return updateAnswer(req, res);
@@ -23,68 +19,46 @@ export default function handler(req, res) {
     }
 }
 
-    // Get answer by id
-    async function getAnswerById(req, res) {
-        try {
-            await connectMongo();
-            const answerId = req.query.slug[0];
-            const answer = await Answers.find({"id": answerId});
-            res.status(200).json(answer);
-        } catch {
-            res.status(500).json({ msg: 'Something went wrong' });
-        }
+// Get answer by id
+async function getAnswerById(req, res) {
+    try {
+        await connectMongo();
+        const answerId = req.query.slug[0];
+        const answer = await Answers.find({"id": answerId});
+        res.status(200).json(answer);
+    } catch {
+        res.status(500).json({ msg: 'Something went wrong' });
     }
+}
 
-    // Add answer
-    async function addAnswer(req, res) {
-        try {
-            await connectMongo();
+// Update answer
+async function updateAnswer(req, res) {
+    try {
+        await connectMongo();
 
-            const {author} = req.body;
-            const {text} = req.body;
-            const questionId = req.query.slug;
+        const {text} = req.body;
 
-            const answerToSave = {
-                author,
-                text,
-                question_id: questionId
-            };
+        const answerId = req.query.slug;
 
-            const answer = await Answers.create(answerToSave);
+        const updatedAnswer = Answers.findByIdAndUpdate(answerId, {text});
 
-        } catch(err) {
-            res.status(500).json({ msg: 'Something went wrong', error: err });
-        }
+        res.status(200).json(updatedAnswer);
+    } catch(err) {
+        res.status(500).json({ msg: 'Something went wrong', error: err });
     }
+}
 
-    // Update answer
-    async function updateAnswer(req, res) {
-        try {
-            await connectMongo();
+// Delete answer
+async function deleteAnswer(req, res) {
+    try {
+        await connectMongo();
+        
+        const answerId = req.query.slug;
 
-            const {text} = req.body;
+        const deletedAnswer = await Answers.findByIdAndDelete(answerId);
 
-            const answerId = req.query.slug;
-
-            const updatedAnswer = Answers.findByIdAndUpdate(answerId, {text});
-
-            res.status(200).json(updatedAnswer);
-        } catch(err) {
-            res.status(500).json({ msg: 'Something went wrong', error: err });
-        }
+        res.status(200).json(deletedAnswer);
+    } catch(err) {
+        res.status(500).json({ msg: 'Something went wrong', error: err });
     }
-
-    // Delete answer
-    async function deleteAnswer(req, res) {
-        try {
-            await connectMongo();
-            
-            const answerId = req.query.slug;
-
-            const deletedAnswer = await Answers.findByIdAndDelete(answerId);
-
-            res.status(200).json(deletedAnswer);
-        } catch(err) {
-            res.status(500).json({ msg: 'Something went wrong', error: err });
-        }
-    }
+}
