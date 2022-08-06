@@ -1,22 +1,22 @@
-import { Schema, model, models } from 'mongoose';
+import { Schema, model, models } from "mongoose";
 
-import {voteSchema} from './vote';
-import {commentSchema} from './comment';
+import { voteSchema } from "./vote";
+import { commentSchema } from "./comment";
 
 export const answerSchema = new Schema({
   author: {
     type: Schema.Types.ObjectId,
-    ref: 'user',
-    required: true
+    ref: "user",
+    required: true,
   },
   created: { type: Date, default: Date.now },
   text: { type: String, required: true },
-  score: { type: Number, default: 0 },
-  question_id: { type: Schema.Types.ObjectId, ref: 'question', required: true }
+  votes: { type: Number, default: 0 },
+  question_id: { type: Schema.Types.ObjectId, ref: "question", required: true },
 });
 
-answerSchema.set('toJSON', { getters: true });
+answerSchema.set("toJSON", { getters: true });
 
-const Answers = models.Answers || model('Answers', answerSchema);
+const Answers = models.Answers || model("Answers", answerSchema);
 
 export default Answers;
