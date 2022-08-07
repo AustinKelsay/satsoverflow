@@ -1,8 +1,5 @@
 import { Schema, model, models } from "mongoose";
 
-import { voteSchema } from "./vote";
-import { commentSchema } from "./comment";
-
 export const answerSchema = new Schema({
   author: {
     type: Schema.Types.ObjectId,
