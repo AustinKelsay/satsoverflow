@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
+import Link from "next/link";
 
 import { ReactComponent as Hamburger } from "../../assets/LogoGlyphMd.svg";
 import { ReactComponent as Stack } from "../../assets/LogoMd.svg";
 import { ReactComponent as GlobalIcon } from "../../assets/Globe.svg";
 
-import "./MobileSideBar.styles.scss";
+import "./MobileSideBar.module.scss";
 
 const SidebarUI = ({ isOpen, ...rest }) => {
 	const classes = ["Sidebar", isOpen ? "is-open" : ""];
@@ -15,9 +15,9 @@ const SidebarUI = ({ isOpen, ...rest }) => {
 	);
 };
 
-SidebarUI.Overlay = (props) => <div className="SidebarOverlay" {...props} />;
+const SidebarUIOverlay = (props) => <div className="SidebarOverlay" {...props} />;
 
-SidebarUI.Content = ({ width = "20rem", isRight = false, ...rest }) => {
+const SidebarUIContent = ({ width = "20rem", isRight = false, ...rest }) => {
 	const classes = ["SidebarContent", isRight ? "is-right" : ""];
 	const style = {
 		width,
@@ -29,6 +29,9 @@ SidebarUI.Content = ({ width = "20rem", isRight = false, ...rest }) => {
 
 	return <div className={classes.join(" ")} style={style} {...rest} />;
 };
+
+SidebarUI.Overlay = SidebarUIOverlay;
+SidebarUI.Content = SidebarUIContent;
 
 const MobileSideBar = (props) => {
 	const [isOpen, setIsOpen] = useState(false);
@@ -52,18 +55,18 @@ const MobileSideBar = (props) => {
 				</div>
 				<div className="content-inner">
 					<div className="side-bar-tabs">
-						<NavLink
+						<Link
 							exact
 							activeClassName="active"
 							className="home-link"
 							to="/"
 						>
 							<p>Home</p>
-						</NavLink>
+						</Link>
 
 						<div className="public-tabs">
 							<p className="title fc-light">PUBLIC</p>
-							<NavLink
+							<Link
 								activeClassName="active"
 								className="icon-link"
 								to="/questions"
@@ -72,28 +75,28 @@ const MobileSideBar = (props) => {
 									<GlobalIcon className="icon" />
 									Stack Overflow
 								</p>
-							</NavLink>
-							<NavLink
+							</Link>
+							<Link
 								activeClassName="active"
 								className="link"
 								to="/tags"
 							>
 								<p>Tags</p>
-							</NavLink>
-							<NavLink
+							</Link>
+							<Link
 								activeClassName="active"
 								className="link"
 								to="/users"
 							>
 								<p>Users</p>
-							</NavLink>
-							<NavLink
+							</Link>
+							<Link
 								activeClassName="active"
 								className="link"
 								to="/jobs"
 							>
 								<p>Jobs</p>
-							</NavLink>
+							</Link>
 						</div>
 						<div className="teams-tabs">
 							<p className="title fc-light">TEAMS</p>

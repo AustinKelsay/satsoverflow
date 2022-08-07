@@ -1,10 +1,7 @@
 import React, {Fragment, useState} from 'react';
 import {Image} from "next/image";
-import {Link, useHistory} from 'react-router-dom';
-import {connect} from 'react-redux';
-import PropTypes from 'prop-types';
-import {logout} from '../../redux/auth/auth.actions';
-
+import Link from 'next/link'
+import { useRouter } from 'next/router'
 import {ReactComponent as Search} from '../../assets/Search.svg';
 import {ReactComponent as Logo} from '../../assets/LogoMd.svg';
 import {ReactComponent as SmallLogo} from '../../assets/LogoGlyphMd.svg';
@@ -12,11 +9,11 @@ import Spinner from '../Spinner/Spinner.component';
 import LinkButton from '../LinkButton/LinkButton.component';
 import MobileSideBar from '../MobileSidebar/MobileSideBar.component';
 
-import './Header.styles.scss';
+import './Header.module.scss';
 
-const Header = ({auth: {isAuthenticated, loading, user}, logout}) => {
-  let history = useHistory();
+const Header = () => {
   const [searchState, setSearchState] = useState(false);
+  const router = useRouter();
 
   const authLinks = (
     <div className='btns'>
@@ -72,7 +69,7 @@ const Header = ({auth: {isAuthenticated, loading, user}, logout}) => {
   const SearchBar = () => {
     return (
       <form
-        onSubmit={() => history.push('/questions')}
+        onSubmit={() => router.push('/questions')}
         className='small-search-form'
         autoComplete='off'
       >
@@ -110,7 +107,7 @@ const Header = ({auth: {isAuthenticated, loading, user}, logout}) => {
         
           <form
             id='search'
-            onSubmit={() => history.push('/questions')}
+            onSubmit={() => router.push('/questions')}
             className={`grid--cell fl-grow1 searchbar px12 js-searchbar`}
             autoComplete='off'
           >
@@ -138,13 +135,4 @@ const Header = ({auth: {isAuthenticated, loading, user}, logout}) => {
   );
 };
 
-Header.propTypes = {
-  logout: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired,
-};
-
-const mapStateToProps = (state) => ({
-  auth: state.auth,
-});
-
-export default connect(mapStateToProps, {logout})(Header);
+export default Header;

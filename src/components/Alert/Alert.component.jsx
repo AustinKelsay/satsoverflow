@@ -1,8 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
-
-import './Alert.styles.scss';
+import './Alert.module.scss';
 
 const Alert = ({ alerts }) => {
   return alerts.length > 0 &&
@@ -24,12 +21,4 @@ const Alert = ({ alerts }) => {
   )
 }
 
-Alert.propTypes = {
-  alerts: PropTypes.array.isRequired,
-};
-
-const mapStateToProps = (state) => ({
-  alerts: state.alert,
-});
-
-export default connect(mapStateToProps)(Alert);
+export default Alert;
