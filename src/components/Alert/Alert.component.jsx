@@ -2,7 +2,7 @@ import React from 'react';
 import './Alert.module.scss';
 
 const Alert = ({ alerts }) => {
-  return alerts.length > 0 &&
+  return alerts?.length > 0 &&
     alerts.map((alert, index) => {
       if (alert.alertType === 'success') {
         return (

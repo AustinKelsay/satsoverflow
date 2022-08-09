@@ -1,6 +1,7 @@
 import React, {Fragment, useState} from 'react';
 import {Image} from "next/image";
 import Link from 'next/link'
+import { useSession, signIn, signOut, getSession } from "next-auth/react"
 import { useRouter } from 'next/router'
 import {ReactComponent as Search} from '../../assets/Search.svg';
 import {ReactComponent as Logo} from '../../assets/LogoMd.svg';
@@ -11,13 +12,15 @@ import MobileSideBar from '../MobileSidebar/MobileSideBar.component';
 
 import './Header.module.scss';
 
-const Header = () => {
+const Header = async () => {
   const [searchState, setSearchState] = useState(false);
   const router = useRouter();
+  const {data: session, status} = useSession();
+  console.log(status)
 
   const authLinks = (
     <div className='btns'>
-      {loading || user === null ? (
+      {status === 'loading' ? (
         <Spinner width='50px' height='50px' />
       ) : (
         <Link to={`/users/${user.id}`} title={user.username}>
@@ -32,7 +35,7 @@ const Header = () => {
         text={'Log out'}
         link={'/login'}
         type={'s-btn__filled'}
-        handleClick={logout}
+        handleClick={signOut}
       />
     </div>
   );
@@ -85,10 +88,12 @@ const Header = () => {
       </form>
     );
   }
-
-
-  return loading ? (
-    ''
+  
+  return status === 'loading' || status === 'unauthenticated' ? (
+    <div>
+      <button onClick={() => signIn()}>Sign In</button>
+      <button onClick={() => signOut()}>Sign Out</button>
+    </div>
   ) : (
     <Fragment>
       <nav className='navbar fixed-top navbar-expand-lg navbar-light bs-md'>
@@ -100,8 +105,8 @@ const Header = () => {
             <Logo className='full-logo' />
             <SmallLogo className='glyph-logo' />
           </Link>
-          {!loading && (
-            <Fragment>{isAuthenticated ? authTabs : guestTabs}</Fragment>
+          {status !== 'loading' && (
+            <Fragment>{session?.user ? authTabs : guestTabs}</Fragment>
           )}
         </div>
         
@@ -125,8 +130,8 @@ const Header = () => {
           </form>
           <div className="header-search-div">
           <Search className="search-icon" onClick={() => setSearchState(!searchState)} />
-          {!loading && (
-            <Fragment>{isAuthenticated ? authLinks : guestLinks}</Fragment>
+          {status !== 'loading' (
+            <Fragment>{session?.user ? authLinks : guestLinks}</Fragment>
           )}
         </div>
       </nav>
