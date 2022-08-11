@@ -1,0 +1,15 @@
+
+.sidebar {
+    width: fill;
+    z-index: 1;
+}
+
+.sidebar p {
+    padding-left: 15%;
+    margin-top: 5%;
+}
+
+.sidebar p:hover {
+    cursor: pointer;
+    opacity: 0.5;
+}
