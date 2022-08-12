@@ -1,9 +1,9 @@
 import Sidebar from "../src/components/Sidebar";
 import Header from "../src/components/Header";
-import QuestionsList from "../src/components/QuestionsList";
+import QuestionsList from "../src/components/Questions/QuestionsList";
 import { Grid, GridItem } from "@chakra-ui/react";
 
-export default function Home() {
+export default function Home({ questions }) {
   return (
     <div>
       <Grid
@@ -27,7 +27,7 @@ export default function Home() {
           <Sidebar />
         </GridItem>
         <GridItem area={"main"}>
-          <QuestionsList />
+          <QuestionsList questions={questions} />
         </GridItem>
         <GridItem pl="2" bg="blue.300" area={"footer"}>
           Footer
@@ -35,4 +35,14 @@ export default function Home() {
       </Grid>
     </div>
   );
+}
+
+export async function getStaticProps() {
+  const res = await fetch("http://localhost:3000/api/questions");
+  const questions = await res.json();
+  return {
+    props: {
+      questions,
+    },
+  };
 }
