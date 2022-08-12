@@ -10,7 +10,7 @@ const Question = ({ author, title, text, tags, score, views, created, id }) => {
     <Grid
       borderBottom={"1px solid #e6e6e6"}
       borderTop={"1px solid #e6e6e6"}
-      templateColumns={"15% 1fr"}
+      templateColumns={"15% 2fr"}
       className={styles.question}
     >
       <GridItem className={styles.gridItemLeft} colSpan={1}>
@@ -22,8 +22,10 @@ const Question = ({ author, title, text, tags, score, views, created, id }) => {
         <Text fontSize={"1xl"} color={"#0000EE"}>
           <Link href={`/questions/${id}`}>{title}</Link>
         </Text>
-        <Text>{text}</Text>
-        <Text color={"grey"} fontSize={"xs"}>
+        <Text fontWeight={"normal"} margin={"1% auto"} fontSize={"sm"}>
+          {text}
+        </Text>
+        <Text fontWeight={"normal"} color={"grey"} fontSize={"xs"}>
           {created}
         </Text>
         {tags.map((tag) => (

@@ -7,6 +7,10 @@
     text-decoration: underline;
 }
 
+.gridItemRight {
+    width: 80%;
+}
+
 .gridItemLeft {
     display: flex;
     flex-direction: column;
