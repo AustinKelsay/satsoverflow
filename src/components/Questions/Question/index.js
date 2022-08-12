@@ -18,13 +18,14 @@ const Question = ({ author, title, text, tags, score, views, created, id }) => {
         <Text>Answers 0</Text>
         <Text>Views {views}</Text>
       </GridItem>
-      <GridItem colStart={2}>
+      <GridItem className={styles.gridItemRight} colStart={2}>
         <Text fontSize={"1xl"} color={"#0000EE"}>
           <Link href={`/questions/${id}`}>{title}</Link>
         </Text>
         <Text>{text}</Text>
-        <Text>{created}</Text>
-        <Text>{author}</Text>
+        <Text color={"grey"} fontSize={"xs"}>
+          {created}
+        </Text>
         {tags.map((tag) => (
           <Tag
             margin={"1%"}
