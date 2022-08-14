@@ -1,14 +1,74 @@
 import React from "react";
 import { Link } from "next/link";
+import { useDispatch } from "react-redux";
+import { changeView } from "../../redux/viewReducer";
+import {
+  Radio,
+  RadioGroup,
+  Box,
+  VStack,
+  useRadio,
+  useRadioGroup,
+} from "@chakra-ui/react";
 import styles from "./styles.module.css";
 
-const Sidebar = () => {
+function RadioCard(props) {
+  const { getInputProps, getCheckboxProps } = useRadio(props);
+
+  const input = getInputProps();
+  const checkbox = getCheckboxProps();
+
   return (
-    <div className={styles.sidebar}>
-      <p>Questions</p>
-      <p>Tags</p>
-      <p>Users</p>
-    </div>
+    <Box w="100%" as="label">
+      <input {...input} />
+      <Box
+        {...checkbox}
+        cursor="pointer"
+        marginTop={"2%"}
+        marginBottom={"2%"}
+        textAlign={"center"}
+        _checked={{
+          bg: "lightgray",
+          borderRightWidth: "3px",
+          borderRightColor: "orange",
+        }}
+        _focus={{
+          borderRight: "2px solid orange.600",
+        }}
+        px={5}
+        py={3}
+      >
+        {props.children}
+      </Box>
+    </Box>
+  );
+}
+
+const Sidebar = () => {
+  const dispatch = useDispatch();
+  const options = ["Questions", "Tags", "Users"];
+
+  const { getRootProps, getRadioProps } = useRadioGroup({
+    name: "view",
+    defaultValue: "Questions",
+    onChange: (view) => {
+      dispatch(changeView(view));
+    },
+  });
+
+  const group = getRootProps();
+
+  return (
+    <VStack {...group}>
+      {options.map((value) => {
+        const radio = getRadioProps({ value });
+        return (
+          <RadioCard key={value} {...radio}>
+            {value}
+          </RadioCard>
+        );
+      })}
+    </VStack>
   );
 };
 

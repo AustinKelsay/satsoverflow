@@ -9,6 +9,7 @@ export const viewSlice = createSlice({
   initialState,
   reducers: {
     changeView: (state, action) => {
+      console.log(action.payload);
       state.currentView = action.payload;
     },
   },
