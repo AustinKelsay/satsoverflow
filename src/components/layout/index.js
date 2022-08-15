@@ -15,7 +15,6 @@ export default function Layout({ children }) {
       h="100vh"
       gap="1"
       color="blackAlpha.700"
-      fontWeight="bold"
     >
       <GridItem
         style={{ position: "fixed", top: 0, left: 0, right: 0 }}

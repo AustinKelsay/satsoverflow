@@ -5,7 +5,12 @@ import { Text } from "@chakra-ui/react";
 const QuestionsList = ({ questions }) => {
   return (
     <div>
-      <Text paddingLeft={"2%"} margin={"2% auto"} fontSize={"3xl"}>
+      <Text
+        borderBottom={"1px solid #e6e6e6"}
+        paddingLeft={"2%"}
+        margin={"2% auto"}
+        fontSize={"3xl"}
+      >
         Public questions
       </Text>
       {questions ? (

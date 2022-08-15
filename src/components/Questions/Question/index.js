@@ -9,7 +9,6 @@ const Question = ({ author, title, text, tags, score, views, created, id }) => {
   return (
     <Grid
       borderBottom={"1px solid #e6e6e6"}
-      borderTop={"1px solid #e6e6e6"}
       templateColumns={"15% 2fr"}
       className={styles.question}
     >
