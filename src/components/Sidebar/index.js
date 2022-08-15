@@ -1,5 +1,6 @@
 import React from "react";
-import { Link } from "next/link";
+import { useRouter } from "next/router";
+import Link from "next/link";
 import { useDispatch } from "react-redux";
 import { changeView } from "../../redux/viewReducer";
 import {
@@ -14,6 +15,8 @@ import styles from "./styles.module.css";
 
 function RadioCard(props) {
   const { getInputProps, getCheckboxProps } = useRadio(props);
+
+  const router = useRouter();
 
   const input = getInputProps();
   const checkbox = getCheckboxProps();
@@ -46,6 +49,7 @@ function RadioCard(props) {
 
 const Sidebar = () => {
   const dispatch = useDispatch();
+  const router = useRouter();
   const options = ["Questions", "Tags", "Users"];
 
   const { getRootProps, getRadioProps } = useRadioGroup({
