@@ -18,8 +18,10 @@ const Question = ({ author, title, text, tags, score, views, created, id }) => {
         <Text>Views {views}</Text>
       </GridItem>
       <GridItem className={styles.gridItemRight} colStart={2}>
-        <Text fontSize={"1xl"} color={"#0000EE"}>
-          <Link href={`/questions/${id}`}>{title}</Link>
+        <Text fontSize={"1xl"}>
+          <Link textDecoration="none" href={`/questions/${id}`}>
+            {title}
+          </Link>
         </Text>
         <Text fontWeight={"normal"} margin={"1% auto"} fontSize={"sm"}>
           {text}
