@@ -1,3 +1,25 @@
+.button {
+    width: 100%;
+    cursor: pointer;
+    margin-top: "2%";
+    margin-bottom: "2%";
+    text-align: "center";
+    background: white;
+}
+
+.buttonSelected {
+    width: 100%;
+    cursor: pointer;
+    margin-top: "2%";
+    margin-bottom: "2%";
+    text-align: "center";
+    background: lightgray;
+    border-right: 3px solid orange;
+}
+
+.button:hover {
+    background: "lightgray";
+}
 
 .sidebar {
     width: 100%;
