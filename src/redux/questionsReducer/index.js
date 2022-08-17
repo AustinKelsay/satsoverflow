@@ -10,7 +10,6 @@ export const questionsSlice = createSlice({
   initialState,
   reducers: {
     getQuestion: (state, action) => {
-      console.log(action.payload);
       axios
         .get(`http://localhost:3000/api/questions/${action.payload}`)
         .then((res) => {

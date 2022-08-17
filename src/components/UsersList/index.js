@@ -4,7 +4,6 @@ import Image from "next/image";
 import { Flex, Text, Spacer, Box } from "@chakra-ui/react";
 
 const UsersList = ({ users }) => {
-  console.log(users);
   return (
     <div>
       <Text

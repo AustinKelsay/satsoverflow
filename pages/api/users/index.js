@@ -35,10 +35,19 @@ async function getUsers(req, res) {
 // Add user
 async function addUser(req, res) {
   try {
-    // get the database connection
     await connectMongo();
 
-    const newUser = await Users.create(req.body);
+    const newUserObject = {
+      username: req.body.username,
+      key: req.body.username,
+    };
+
+    const userExists = await Users.findOne({ username: req.body.username });
+    if (userExists) {
+      return res.status(400).json({ error: "User already exists" });
+    }
+
+    const newUser = await Users.create(newUserObject);
 
     // return the user
     res.status(201).json(newUser);
