@@ -37,12 +37,14 @@ async function addUser(req, res) {
   try {
     await connectMongo();
 
+    const name = req.body.username.replace(/\s+/g, "");
+
     const newUserObject = {
-      username: req.body.username,
-      key: req.body.username,
+      username: name,
+      key: name,
     };
 
-    const userExists = await Users.findOne({ username: req.body.username });
+    const userExists = await Users.findOne({ username: name });
     if (userExists) {
       return res.status(400).json({ error: "User already exists" });
     }
