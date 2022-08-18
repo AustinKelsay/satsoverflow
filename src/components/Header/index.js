@@ -4,9 +4,10 @@ import { FaStackOverflow } from "react-icons/fa";
 import { Flex, Button, Text, Box } from "@chakra-ui/react";
 import { useSession, signIn, signOut } from "next-auth/react";
 import styles from "./styles.module.css";
+import { useSelector } from "react-redux";
 
 const Header = () => {
-  const { data: session } = useSession();
+  const user = useSelector((state) => state.users.currentUser);
   const router = useRouter();
   return (
     <Flex
@@ -20,9 +21,15 @@ const Header = () => {
       >
         <FaStackOverflow size={35} color={"orange"} />
       </Box>
-      {session ? (
-        <Flex flexDirection={"row"} justifyContent={"space-evenly"} w={"20%"}>
-          <Text>{session.user.name}</Text>
+      {user && user.name ? (
+        <Flex
+          alignItems={"center"}
+          alignContent={"center"}
+          flexDirection={"row"}
+          justifyContent={"space-evenly"}
+          w={"30%"}
+        >
+          <Text>{user.name}</Text>
           <Button
             onClick={() => signOut()}
             fontWeight={"normal"}

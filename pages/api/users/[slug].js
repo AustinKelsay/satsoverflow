@@ -26,7 +26,7 @@ async function getUserByUsername(req, res) {
     await connectMongo();
 
     // get user by id
-    const user = await Users.findOne({ username: name });
+    const user = await Users.findOne({ username: req.query.slug });
 
     // send response
     res.status(200).json(user);

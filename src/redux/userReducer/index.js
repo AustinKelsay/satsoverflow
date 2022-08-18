@@ -1,10 +1,10 @@
-import { Alert } from "@chakra-ui/react";
 import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
 const initialState = {
   loading: false,
   currentUser: {},
+  exists: false,
 };
 
 export const userSlice = createSlice({
@@ -12,20 +12,28 @@ export const userSlice = createSlice({
   initialState,
   reducers: {
     addUser: (state, action) => {
+      const user = {
+        name: action.payload?.name.replace(/\s+/g, ""),
+        key: action.payload?.name.replace(/\s+/g, ""),
+      };
       state.loading = true;
       let userExists = false;
+      state.currentUser = user;
       axios
-        .get(`http://localhost:3000/api/users/${action.payload}`)
+        .get(`http://localhost:3000/api/users/${user.name}`)
         .then((res) => {
-          res.data === null ? (userExists = false) : (userExists = true);
+          res.data.username ? (userExists = true) : (userExists = false);
         })
         .catch((err) => {
           console.log(err);
         });
 
       if (!userExists) {
+        console.log("user does not exist");
         axios
-          .post("http://localhost:3000/api/users", { username: action.payload })
+          .post("http://localhost:3000/api/users", {
+            username: action.payload.name,
+          })
           .then((res) => {
             state.loading = false;
             state.currentUser = res.data;
@@ -35,10 +43,20 @@ export const userSlice = createSlice({
           });
       }
     },
+    checkIfUserExists: (state, action) => {
+      const username = action.payload?.name.replace(/\s+/g, "");
+      axios
+        .get(`http://localhost:3000/api/users/${username}`)
+        .then((res) => {
+          res.data.username ? (state.exists = true) : (state.exists = false);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
   },
 });
 
-// Action creators are generated for each case reducer function
-export const { addUser } = userSlice.actions;
+export const { addUser, checkIfUserExists } = userSlice.actions;
 
 export default userSlice.reducer;
