@@ -19,13 +19,16 @@ export default function Layout({ children }) {
       <GridItem
         style={{ position: "fixed", top: 0, left: 0, right: 0 }}
         area={"header"}
+        paddingRight={"1%"}
       >
         <Header />
       </GridItem>
       <GridItem style={{ borderRight: "1px solid #e6e6e6" }} area={"nav"}>
         <Sidebar />
       </GridItem>
-      <GridItem area={"main"}>{children}</GridItem>
+      <GridItem w={"90%"} area={"main"}>
+        {children}
+      </GridItem>
       <GridItem pl="2" bg="blue.300" area={"footer"}>
         Footer
       </GridItem>
