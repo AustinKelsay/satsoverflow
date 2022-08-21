@@ -13,15 +13,7 @@ const Login = () => {
 
   const handleSubmit = async () => {
     const user = await signIn();
-
-    console.log(user);
   };
-
-  //   useEffect(() => {
-  //     if (session?.user) {
-  //       dispatch(checkIfUserExists(session.user));
-  //     }
-  //   }, [session, dispatch, router]);
 
   return (
     <Flex w="80%" m="1% auto" flexDirection={"column"}>

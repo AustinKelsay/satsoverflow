@@ -7,7 +7,7 @@ import styles from "./styles.module.css";
 import { useSelector } from "react-redux";
 
 const Header = () => {
-  const user = useSelector((state) => state.users.currentUser);
+  const { data: session } = useSession();
   const router = useRouter();
   return (
     <Flex
@@ -21,7 +21,7 @@ const Header = () => {
       >
         <FaStackOverflow size={35} color={"orange"} />
       </Box>
-      {user && user.name ? (
+      {session && session.user ? (
         <Flex
           alignItems={"center"}
           alignContent={"center"}
@@ -29,7 +29,7 @@ const Header = () => {
           justifyContent={"space-evenly"}
           w={"30%"}
         >
-          <Text>{user.name}</Text>
+          <Text>{session.user.name}</Text>
           <Button
             onClick={() => signOut()}
             fontWeight={"normal"}
