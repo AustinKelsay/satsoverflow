@@ -28,7 +28,7 @@ const Header = () => {
           alignContent={"center"}
           flexDirection={"row"}
           justifyContent={"space-between"}
-          w={"30%"}
+          w={"25%"}
         >
           <Flex
             _hover={{ border: "1px solid #e6e6e6", cursor: "pointer" }}

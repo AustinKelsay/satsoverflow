@@ -8,6 +8,7 @@ const Question = ({ author, title, text, tags, score, views, created, id }) => {
   return (
     <Grid
       borderBottom={"1px solid #e6e6e6"}
+      borderTop={"1px solid #e6e6e6"}
       templateColumns={"15% 2fr"}
       className={styles.question}
     >
@@ -16,9 +17,9 @@ const Question = ({ author, title, text, tags, score, views, created, id }) => {
         <Text>Answers 0</Text>
         <Text>Views {views}</Text>
       </GridItem>
-      <GridItem className={styles.gridItemRight} colStart={2}>
+      <GridItem w={"90%"} colStart={2}>
         <Text fontSize={"1xl"}>
-          <Link textDecoration="none" href={`/questions/${id}`}>
+          <Link href={`/questions/${id}`} passHref>
             {title}
           </Link>
         </Text>

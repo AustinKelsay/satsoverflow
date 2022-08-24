@@ -1,14 +1,10 @@
 .question {
-    margin: 2% auto;
+    padding: 2%;
 }
 
 .question a {
     color: #00bcd4;
     text-decoration: underline;
-}
-
-.gridItemRight {
-    width: 80%;
 }
 
 .gridItemLeft {
