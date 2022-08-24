@@ -13,7 +13,7 @@ const QuestionsList = ({ questions }) => {
       >
         Public questions
       </Text>
-      {questions ? (
+      {questions.length ? (
         questions.map((q) => <Question key={q.id} {...q} />)
       ) : (
         <p>loading</p>

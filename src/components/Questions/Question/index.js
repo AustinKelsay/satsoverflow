@@ -1,8 +1,7 @@
 import React from "react";
 import Link from "next/link";
-import { Tag } from "@chakra-ui/react";
-import { Text } from "@chakra-ui/react";
-import { Grid, GridItem, Flex } from "@chakra-ui/react";
+import { Grid, GridItem, Flex, Text, Box, Tag } from "@chakra-ui/react";
+import { Image } from "@chakra-ui/react";
 import styles from "./styles.module.css";
 
 const Question = ({ author, title, text, tags, score, views, created, id }) => {
@@ -47,14 +46,18 @@ const Question = ({ author, title, text, tags, score, views, created, id }) => {
               </Tag>
             ))}
           </Flex>
-          <Text
-            alignSelf={"center"}
-            fontWeight={"normal"}
-            color={"grey"}
-            fontSize={"sm"}
-          >
-            {author}
-          </Text>
+          <Flex justifyContent={"flex-end"} flexDirection={"row"}>
+            <Image w={"15%"} src={author.profilePhoto} alt={author.username} />
+            <Text
+              alignSelf={"center"}
+              fontWeight={"normal"}
+              color={"grey"}
+              fontSize={"sm"}
+              marginLeft={"3%"}
+            >
+              {author.username}
+            </Text>
+          </Flex>
         </Flex>
       </GridItem>
     </Grid>

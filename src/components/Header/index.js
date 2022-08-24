@@ -27,24 +27,29 @@ const Header = () => {
           alignItems={"center"}
           alignContent={"center"}
           flexDirection={"row"}
-          justifyContent={"space-evenly"}
+          justifyContent={"space-between"}
           w={"30%"}
         >
-          <Image
-            width="40%"
-            height="40%"
-            quality={100}
-            alt={"avatar"}
-            src={session.user.profilePhoto}
-          />
-          <Button
-            fontWeight={"normal"}
-            variant={"transparent"}
-            _hover={{ border: "1px solid #e6e6e6" }}
+          <Flex
+            _hover={{ border: "1px solid #e6e6e6", cursor: "pointer" }}
             onClick={() => router.push(`/profile/${session.user.username}`)}
+            justifyContent={"flex-start"}
+            flexDirection={"row"}
+            padding={"2%"}
+            border={"1px solid transparent"}
+            borderRadius={"5px"}
           >
-            {session.user.username}
-          </Button>
+            <Image
+              width="40%"
+              height="40%"
+              quality={100}
+              alt={"avatar"}
+              src={session.user.profilePhoto}
+            />
+            <Text marginLeft={"3%"} alignSelf={"center"} fontWeight={"normal"}>
+              {session.user.username}
+            </Text>
+          </Flex>
           <Button
             onClick={() => signOut()}
             fontWeight={"normal"}
