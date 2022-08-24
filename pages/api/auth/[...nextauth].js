@@ -20,6 +20,7 @@ export default NextAuth({
         username: session.user.name,
         key: session.user.name,
       });
+
       if (user.status === 200) {
         session.user = user.data.exists;
         return session;

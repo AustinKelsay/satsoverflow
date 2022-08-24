@@ -4,13 +4,11 @@ import { FaStackOverflow } from "react-icons/fa";
 import { Flex, Button, Text, Box } from "@chakra-ui/react";
 import { useSession, signIn, signOut } from "next-auth/react";
 import styles from "./styles.module.css";
-import { useSelector } from "react-redux";
+import Image from "next/image";
 
 const Header = () => {
   const { data: session, status } = useSession();
   const router = useRouter();
-
-  console.log(session);
 
   return (
     <Flex
@@ -32,11 +30,21 @@ const Header = () => {
           justifyContent={"space-evenly"}
           w={"30%"}
         >
-          <Text
+          <Image
+            width="40%"
+            height="40%"
+            quality={100}
+            alt={"avatar"}
+            src={session.user.profilePhoto}
+          />
+          <Button
+            fontWeight={"normal"}
+            variant={"transparent"}
+            _hover={{ border: "1px solid #e6e6e6" }}
             onClick={() => router.push(`/profile/${session.user.username}`)}
           >
             {session.user.username}
-          </Text>
+          </Button>
           <Button
             onClick={() => signOut()}
             fontWeight={"normal"}
