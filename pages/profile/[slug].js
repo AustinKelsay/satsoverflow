@@ -45,7 +45,7 @@ const Profile = () => {
       </Text>
       <Flex
         marginTop={"2%"}
-        w={"35%"}
+        w={"30%"}
         padding={"1%"}
         border={"1px solid black"}
         borderRadius={"5px"}

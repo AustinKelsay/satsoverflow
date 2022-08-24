@@ -2,7 +2,7 @@ import React from "react";
 import Link from "next/link";
 import { Tag } from "@chakra-ui/react";
 import { Text } from "@chakra-ui/react";
-import { Grid, GridItem } from "@chakra-ui/react";
+import { Grid, GridItem, Flex } from "@chakra-ui/react";
 import styles from "./styles.module.css";
 
 const Question = ({ author, title, text, tags, score, views, created, id }) => {
@@ -29,17 +29,33 @@ const Question = ({ author, title, text, tags, score, views, created, id }) => {
         <Text fontWeight={"normal"} color={"grey"} fontSize={"xs"}>
           {created}
         </Text>
-        {tags.map((tag) => (
-          <Tag
-            margin={"1%"}
-            paddingTop={"1%"}
-            paddingBottom={"1%"}
-            marginLeft={0}
-            key={tag}
+        <Flex justifyContent={"space-between"} flexDirection={"row"}>
+          <Flex
+            whiteSpace={"nowrap"}
+            flexDirection={"row"}
+            justifyContent={"flex-start"}
           >
-            {tag}
-          </Tag>
-        ))}
+            {tags.map((tag) => (
+              <Tag
+                margin={"1%"}
+                paddingTop={"1%"}
+                paddingBottom={"1%"}
+                marginLeft={0}
+                key={tag}
+              >
+                {tag}
+              </Tag>
+            ))}
+          </Flex>
+          <Text
+            alignSelf={"center"}
+            fontWeight={"normal"}
+            color={"grey"}
+            fontSize={"sm"}
+          >
+            {author}
+          </Text>
+        </Flex>
       </GridItem>
     </Grid>
   );
