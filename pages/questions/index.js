@@ -1,5 +1,5 @@
 import React from "react";
-import QuestionsList from "../src/components/Questions/QuestionsList";
+import QuestionsList from "../../src/components/Questions/QuestionsList";
 
 export default function Questions({ questions }) {
   return <QuestionsList questions={questions} />;
