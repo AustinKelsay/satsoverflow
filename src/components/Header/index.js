@@ -16,12 +16,15 @@ const Header = () => {
       justifyContent={"space-between"}
       className={styles.header}
     >
-      <Box
+      <Flex
+        flexDirection={"row"}
+        alignItems={"center"}
         _hover={{ opacity: 0.7, cursor: "pointer" }}
         onClick={() => router.push("/")}
       >
         <FaStackOverflow size={35} color={"orange"} />
-      </Box>
+        <Text fontSize={"xl"}>Satsoverflow</Text>
+      </Flex>
       {status === "authenticated" ? (
         <Flex
           alignItems={"center"}
