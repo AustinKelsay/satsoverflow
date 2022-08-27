@@ -18,7 +18,7 @@ const Header = () => {
     >
       <Flex
         flexDirection={"row"}
-        alignItems={"center"}
+        alignItems={"flex-end"}
         _hover={{ opacity: 0.7, cursor: "pointer" }}
         onClick={() => router.push("/")}
       >

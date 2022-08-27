@@ -2,6 +2,7 @@ import React from "react";
 import { Grid, GridItem } from "@chakra-ui/react";
 import Header from "../Header";
 import Sidebar from "../Sidebar";
+import Footer from "../Footer";
 
 export default function Layout({ children }) {
   return (
@@ -23,8 +24,13 @@ export default function Layout({ children }) {
       <GridItem borderRight={"1px solid #e6e6e6"} w={"90%"} area={"main"}>
         {children}
       </GridItem>
-      <GridItem pl="2" bg="blue.300" area={"footer"}>
-        Footer
+      <GridItem
+        borderRight={"1px solid #e6e6e6"}
+        borderTop={"1px solid #e6e6e6"}
+        w={"90%"}
+        area={"footer"}
+      >
+        <Footer />
       </GridItem>
     </Grid>
   );
