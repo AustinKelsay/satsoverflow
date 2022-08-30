@@ -6,7 +6,7 @@ const questionSchema = new Schema({
     profilePhoto: { type: String, ref: "Users", required: true },
   },
   title: { type: String, required: true },
-  text: { type: String, required: true },
+  description: { type: String, required: true },
   tags: [{ type: String, required: true }],
   score: { type: Number, default: 0 },
   created: { type: Date, default: Date.now },
