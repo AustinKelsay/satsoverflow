@@ -4,7 +4,16 @@ import { Grid, GridItem, Flex, Text, Box, Tag } from "@chakra-ui/react";
 import { Image } from "@chakra-ui/react";
 import styles from "./styles.module.css";
 
-const Question = ({ author, title, text, tags, score, views, created, id }) => {
+const Question = ({
+  author,
+  title,
+  description,
+  tags,
+  score,
+  views,
+  created,
+  id,
+}) => {
   return (
     <Grid
       borderBottom={"1px solid #e6e6e6"}
@@ -24,7 +33,7 @@ const Question = ({ author, title, text, tags, score, views, created, id }) => {
           </Link>
         </Text>
         <Text fontWeight={"normal"} margin={"1% auto"} fontSize={"sm"}>
-          {text}
+          {description}
         </Text>
         <Text fontWeight={"normal"} color={"grey"} fontSize={"xs"}>
           {created}

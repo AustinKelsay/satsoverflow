@@ -45,14 +45,24 @@ const QuestionForm = () => {
 
   return (
     <Flex>
-      <form onSubmit={(e) => handleSubmit(e)}>
-        <FormControl m={"1%"}>
+      <form
+        style={{ width: "80%", margin: "0 auto" }}
+        onSubmit={(e) => handleSubmit(e)}
+      >
+        <FormControl>
           <FormLabel>Title</FormLabel>
           <Input onChange={(e) => handleChange(e)} name="title" type="text" />
           <FormLabel>Description</FormLabel>
           <Textarea onChange={handleChange} name="description" type="text" />
         </FormControl>
-        <Button type="submit">Submit</Button>
+        <Flex
+          mt={"2%"}
+          w={"100%"}
+          flexDirection={"row"}
+          justifyContent={"flex-end"}
+        >
+          <Button type="submit">Submit</Button>
+        </Flex>
       </form>
       {/* Create formcontrol with title and text fields */}
       {/* <form onSubmit={handleSubmit}>
