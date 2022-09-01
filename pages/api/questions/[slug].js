@@ -31,7 +31,7 @@ async function getQuestionById(req, res) {
     const formattedQuestion = {
       id: question.id,
       title: question.title,
-      text: question.text,
+      description: question.description,
       author: question.author,
       tags: question.tags,
       score: question.score,

@@ -9,9 +9,11 @@ import {
 } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
 import axios from "axios";
+import { useRouter } from "next/router";
 
 const QuestionForm = () => {
   const { data: session, status } = useSession();
+  const router = useRouter();
   const [formData, setFormData] = useState({
     title: "",
     description: "",
@@ -41,6 +43,7 @@ const QuestionForm = () => {
           console.log(err);
         });
     }
+    router.push("/questions");
   };
 
   return (

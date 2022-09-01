@@ -1,11 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { Box, Flex, Text } from "@chakra-ui/react";
+import { Box, Flex, Text, Button } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import axios from "axios";
+import { useSession } from "next-auth/react";
+import { deleteQuestion } from "../../src/redux/questionsReducer";
+import { useDispatch } from "react-redux";
 
 const Question = () => {
+  const { data: session, status } = useSession();
   const { slug } = useRouter().query;
   const [question, setQuestion] = useState(null);
+  const dispatch = useDispatch();
+  const router = useRouter();
 
   useEffect(() => {
     axios
@@ -17,6 +23,12 @@ const Question = () => {
         console.log(err);
       });
   }, [slug, question]);
+
+  const handleDelete = () => {
+    dispatch(deleteQuestion(slug));
+    router.push("/questions");
+  };
+
   return (
     <div>
       {question ? (
@@ -28,7 +40,6 @@ const Question = () => {
               </Text>
               <Flex
                 w="30%"
-                marginBottom={"2%"}
                 marginTop={"2%"}
                 justifyContent={"space-between"}
                 flexDirection={"row"}
@@ -38,8 +49,15 @@ const Question = () => {
                 <Text fontSize={"xs"}>Votes {question.score}</Text>
               </Flex>
             </Box>
-            <Text fontSize={"md"}>{question.text}</Text>
+            <Text mt={"2%"} mb={"2%"} fontSize={"md"}>
+              {question.description}
+            </Text>
           </Flex>
+          {status === "authenticated" ? (
+            <Button onClick={handleDelete} colorScheme={"red"} mt={"2%"}>
+              Delete
+            </Button>
+          ) : null}
         </Box>
       ) : (
         <div>loading</div>

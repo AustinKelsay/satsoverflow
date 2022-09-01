@@ -27,15 +27,15 @@ const Question = ({
         <Text>Views {views}</Text>
       </GridItem>
       <GridItem w={"90%"} colStart={2}>
-        <Text fontSize={"1xl"}>
+        <Text mt={"1%"} fontSize={"1xl"}>
           <Link href={`/questions/${id}`} passHref>
             {title}
           </Link>
         </Text>
-        <Text fontWeight={"normal"} margin={"1% auto"} fontSize={"sm"}>
+        <Text mt={"1%"} fontWeight={"normal"} fontSize={"sm"}>
           {description}
         </Text>
-        <Text fontWeight={"normal"} color={"grey"} fontSize={"xs"}>
+        <Text mt={"1%"} fontWeight={"normal"} color={"grey"} fontSize={"xs"}>
           {created}
         </Text>
         <Flex justifyContent={"space-between"} flexDirection={"row"}>
