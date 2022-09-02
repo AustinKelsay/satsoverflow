@@ -26,24 +26,34 @@ const Question = ({
         <Text>Answers 0</Text>
         <Text>Views {views}</Text>
       </GridItem>
-      <GridItem w={"90%"} colStart={2}>
-        <Text mt={"1%"} fontSize={"1xl"}>
-          <Link href={`/questions/${id}`} passHref>
-            {title}
-          </Link>
-        </Text>
-        <Text mt={"1%"} fontWeight={"normal"} fontSize={"sm"}>
-          {description}
-        </Text>
-        <Text mt={"1%"} fontWeight={"normal"} color={"grey"} fontSize={"xs"}>
-          {created}
-        </Text>
-        <Flex justifyContent={"space-between"} flexDirection={"row"}>
-          <Flex
-            whiteSpace={"nowrap"}
-            flexDirection={"row"}
-            justifyContent={"flex-start"}
-          >
+      <Flex flexDirection={"column"}>
+        <Flex flexDirection={"row"} w={"100%"}>
+          <Flex flexDirection={"column"} justifyContent={"space-evenly"}>
+            <Text mt={"1%"} fontSize={"1xl"}>
+              <Link href={`/questions/${id}`} passHref>
+                {title}
+              </Link>
+            </Text>
+            <Text mt={"1%"} fontWeight={"normal"} fontSize={"sm"}>
+              {description}
+            </Text>
+            <Text
+              mt={"1%"}
+              fontWeight={"normal"}
+              color={"grey"}
+              fontSize={"xs"}
+            >
+              {created}
+            </Text>
+          </Flex>
+        </Flex>
+        <Flex
+          w={"100%"}
+          whiteSpace={"nowrap"}
+          flexDirection={"row"}
+          justifyContent={"space-between"}
+        >
+          <Box w={"60%"}>
             {tags.map((tag) => (
               <Tag
                 margin={"1%"}
@@ -55,9 +65,14 @@ const Question = ({
                 {tag}
               </Tag>
             ))}
-          </Flex>
-          <Flex justifyContent={"flex-end"} flexDirection={"row"}>
-            <Image w={"15%"} src={author.profilePhoto} alt={author.username} />
+          </Box>
+          <Flex
+            justifyContent={"flex-end"}
+            alignSelf={"center"}
+            flexDirection={"row"}
+            w={"fill"}
+          >
+            <Image w={"10%"} src={author.profilePhoto} alt={author.username} />
             <Text
               alignSelf={"center"}
               fontWeight={"normal"}
@@ -69,7 +84,7 @@ const Question = ({
             </Text>
           </Flex>
         </Flex>
-      </GridItem>
+      </Flex>
     </Grid>
   );
 };
