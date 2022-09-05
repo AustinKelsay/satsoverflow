@@ -2,7 +2,8 @@ import { Schema, model, models } from "mongoose";
 
 export const tagSchema = new Schema({
   name: { type: String, required: true },
-  uses: { type: Number, default: 0 },
+  parent: { type: Schema.Types.ObjectId, ref: "Questions" },
+  created: { type: Date, default: Date.now },
 });
 
 tagSchema.set("toJSON", { getters: true });

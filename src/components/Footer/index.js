@@ -21,11 +21,15 @@ const Footer = () => {
         justifyContent={"space-evenly"}
         flexDirection={"row"}
       >
-        <Link href={"https://github.com/austinkelsay/satsoverflow"}>
-          <FaGithub cursor={"pointer"} size={25} />
+        <Link href={"https://github.com/austinkelsay/satsoverflow"} passHref>
+          <a target={"_blank"} rel={"noopener"}>
+            <FaGithub cursor={"pointer"} size={25} />
+          </a>
         </Link>
         <Link href={"https://twitter.com/bitcoinplebdev"}>
-          <FaTwitter cursor={"pointer"} size={25} color={"#1DA1F2"} />
+          <a target={"_blank"} rel={"noopener"}>
+            <FaTwitter cursor={"pointer"} size={25} color={"#1DA1F2"} />
+          </a>
         </Link>
       </Flex>
     </Flex>

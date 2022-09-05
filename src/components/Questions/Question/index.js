@@ -56,6 +56,9 @@ const Question = ({
           <Box w={"60%"}>
             {tags.map((tag) => (
               <Tag
+                variant="outline"
+                colorScheme="blue"
+                cursor={"pointer"}
                 margin={"1%"}
                 paddingTop={"1%"}
                 paddingBottom={"1%"}

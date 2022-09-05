@@ -23,7 +23,7 @@ const Header = () => {
         onClick={() => router.push("/")}
       >
         <FaStackOverflow size={35} color={"orange"} />
-        <Text fontSize={"xl"}>Satsoverflow</Text>
+        <Text fontSize={"xl"}>satsoverflow</Text>
       </Flex>
       {status === "authenticated" ? (
         <Flex
