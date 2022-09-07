@@ -9,7 +9,9 @@ import {
   Box,
   Tag,
   Text,
-  Select,
+  InputGroup,
+  InputLeftAddon,
+  TagCloseButton,
 } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
 import axios from "axios";
@@ -40,10 +42,15 @@ const QuestionForm = ({ tags }) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleTag = (tag) => {
+  const addTag = (tag) => {
     if (!formData.tags.includes(tag)) {
       setFormData({ ...formData, tags: [...formData.tags, tag] });
     }
+  };
+
+  const removeTag = (tag) => {
+    const newTags = formData.tags.filter((t) => t !== tag);
+    setFormData({ ...formData, tags: newTags });
   };
 
   const handleSubmit = (e) => {
@@ -79,34 +86,48 @@ const QuestionForm = ({ tags }) => {
           <Input onChange={(e) => handleChange(e)} name="title" type="text" />
           <FormLabel>Description</FormLabel>
           <Textarea onChange={handleChange} name="description" type="text" />
-        </FormControl>
-        <Box>
           <Text>Tags</Text>
-          <Box borderRadius={"5px"} border={"1px solid #e6e6e6"}>
+          <InputGroup>
             {formData.tags.length ? (
-              formData.tags.map((tag) => {
-                return (
-                  <Tag key={tag} m={"1%"}>
-                    {tag}
-                  </Tag>
-                );
-              })
-            ) : (
-              <Tag opacity={0} m={"1%"} />
-            )}
-          </Box>
-          <Select
-            placeholder="Select tags"
-            onChange={(e) => handleTag(e.target.value)}
-            w={"40%"}
-          >
-            {filterState.map((tag) => (
-              <option key={tag.name} value={tag.name}>
-                {tag.name}
-              </option>
-            ))}
-          </Select>
-        </Box>
+              <InputLeftAddon borderRight={"none"} bg={"none"}>
+                {formData.tags.map((tag) => {
+                  return (
+                    <Tag key={tag} variant={"outline"} colorScheme={"blue"}>
+                      {tag}
+                      <TagCloseButton onClick={() => removeTag(tag)} />
+                    </Tag>
+                  );
+                })}
+              </InputLeftAddon>
+            ) : null}
+            <Input
+              name="tags"
+              type="text"
+              onChange={(e) => setQuery(e.target.value)}
+              borderLeft={"none"}
+            />
+          </InputGroup>
+          {query !== "" ? (
+            <Box
+              w={"40%"}
+              border={"2px solid #e6e6e6"}
+              borderTop={"none"}
+              borderBottomRadius={"5px"}
+            >
+              {filterState.map((tag) => (
+                <Tag
+                  variant={"outline"}
+                  colorScheme={"blue"}
+                  key={tag.name}
+                  m={"1%"}
+                  onClick={() => addTag(tag.name)}
+                >
+                  {tag.name}
+                </Tag>
+              ))}
+            </Box>
+          ) : null}
+        </FormControl>
         <Flex
           mt={"2%"}
           w={"100%"}
