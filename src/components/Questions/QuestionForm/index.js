@@ -12,6 +12,7 @@ import {
   InputGroup,
   InputLeftAddon,
   TagCloseButton,
+  FormHelperText,
 } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
 import axios from "axios";
@@ -46,6 +47,7 @@ const QuestionForm = ({ tags }) => {
     if (!formData.tags.includes(tag)) {
       setFormData({ ...formData, tags: [...formData.tags, tag] });
     }
+    console.log(formData);
   };
 
   const removeTag = (tag) => {
@@ -78,21 +80,39 @@ const QuestionForm = ({ tags }) => {
   return (
     <Flex>
       <form
-        style={{ width: "80%", margin: "0 auto" }}
+        style={{ padding: "1%", width: "90%", margin: "0 auto" }}
         onSubmit={(e) => handleSubmit(e)}
       >
         <FormControl>
           <FormLabel>Title</FormLabel>
-          <Input onChange={(e) => handleChange(e)} name="title" type="text" />
+          <Input
+            mb={"1%"}
+            onChange={(e) => handleChange(e)}
+            name="title"
+            type="text"
+          />
           <FormLabel>Description</FormLabel>
-          <Textarea onChange={handleChange} name="description" type="text" />
-          <Text>Tags</Text>
+          <Textarea
+            mb={"1%"}
+            onChange={handleChange}
+            name="description"
+            type="text"
+          />
+          <FormLabel>Tags</FormLabel>
+          <FormHelperText mb={"1%"}>
+            Add up to 5 tags to label your question
+          </FormHelperText>
           <InputGroup>
             {formData.tags.length ? (
               <InputLeftAddon borderRight={"none"} bg={"none"}>
                 {formData.tags.map((tag) => {
                   return (
-                    <Tag key={tag} variant={"outline"} colorScheme={"blue"}>
+                    <Tag
+                      m={"1%"}
+                      key={tag}
+                      variant={"outline"}
+                      colorScheme={"blue"}
+                    >
                       {tag}
                       <TagCloseButton onClick={() => removeTag(tag)} />
                     </Tag>
@@ -104,12 +124,14 @@ const QuestionForm = ({ tags }) => {
               name="tags"
               type="text"
               onChange={(e) => setQuery(e.target.value)}
-              borderLeft={"none"}
+              onBlur={() => {
+                query !== "" && addTag(query);
+              }}
             />
           </InputGroup>
           {query !== "" ? (
             <Box
-              w={"40%"}
+              w={"100%"}
               border={"2px solid #e6e6e6"}
               borderTop={"none"}
               borderBottomRadius={"5px"}
