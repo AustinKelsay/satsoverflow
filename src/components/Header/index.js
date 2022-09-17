@@ -1,6 +1,6 @@
 import React from "react";
 import { useRouter } from "next/router";
-import { FaStackOverflow } from "react-icons/fa";
+import { FaLaptopCode } from "react-icons/fa";
 import { Flex, Button, Text, Box } from "@chakra-ui/react";
 import { useSession, signIn, signOut } from "next-auth/react";
 import styles from "./styles.module.css";
@@ -22,8 +22,10 @@ const Header = () => {
         _hover={{ opacity: 0.7, cursor: "pointer" }}
         onClick={() => router.push("/")}
       >
-        <FaStackOverflow size={35} color={"orange"} />
-        <Text fontSize={"xl"}>satsoverflow</Text>
+        <FaLaptopCode size={35} color={"orange"} />
+        <Text ml={"3%"} alignSelf={"center"} fontSize={"xl"}>
+          plebdevs
+        </Text>
       </Flex>
       {status === "authenticated" ? (
         <Flex
